@@ -1,4 +1,5 @@
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
+import { GetAllEventsRatingResponse } from '../../models/rating.model';
 
 export class QueryDBHelper {
   static #istance: QueryDBHelper;
@@ -22,8 +23,8 @@ export class QueryDBHelper {
       .#neonObj`SELECT name_event, year, description FROM events;`;
   }
 
-  async getAllEventsRating() {
-    return await this.#neonObj`SELECT * from events_rating;`;
+  async getAllEventsRating<T>() {
+    return (await this.#neonObj`SELECT * from events_rating;`) as T;
   }
 
   async setSchema() {
