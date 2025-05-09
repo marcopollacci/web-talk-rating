@@ -7,6 +7,8 @@ import {
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readRouter } from './server/routes/read.route';
+import 'dotenv/config';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -25,6 +27,8 @@ const angularApp = new AngularNodeAppEngine();
  * });
  * ```
  */
+
+app.use('/api', readRouter);
 
 /**
  * Serve static files from /browser
