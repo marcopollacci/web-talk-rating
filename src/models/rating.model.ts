@@ -13,6 +13,7 @@ export interface GetSingleEventResponse {
   description: string;
   date_event_from: string;
   date_event_to: string;
+  vote_enabled: boolean;
 }
 
 export interface GetAllEventsRatingMapped

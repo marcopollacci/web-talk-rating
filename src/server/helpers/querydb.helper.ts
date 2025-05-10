@@ -26,7 +26,7 @@ export class QueryDBHelper {
 
   async getEvent(eventId: string) {
     return await this.#neonObj.query(
-      `SELECT name_event, description, date_event_from, date_event_to  FROM events WHERE random_value = $1`,
+      `SELECT name_event, description, date_event_from, date_event_to, vote_enabled FROM events WHERE random_value = $1`,
       [eventId]
     );
   }

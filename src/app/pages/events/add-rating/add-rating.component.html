@@ -1,3 +1,16 @@
-@if(canVote) {
+@if(noEventFound()) {
+<h1>No event found</h1>
+} @else if (!canVote()) {
+<h1>Vote disabled</h1>
+}@else { @if(eventData) {
+<h1>Rate my Talk</h1>
+<h2>
+  {{ eventData.name_event }} -
+  {{ eventData.date_event_from | date : "dd/MM/yyyy" }}
+  @if (eventData.date_event_from !== eventData.date_event_to){ -
+  {{ eventData.date_event_to | date : "dd/MM/yyyy" }}
+  }
+</h2>
+<p>{{ eventData.description }}</p>
 <app-form-vote (emitForm)="onSubmitForm($event)"></app-form-vote>
-}
+} }

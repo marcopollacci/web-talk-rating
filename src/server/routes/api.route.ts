@@ -71,7 +71,6 @@ router.use('/get-event/:eventId', async (req, res) => {
 
   try {
     const result = await connectionDBNeon.getEvent(req.params.eventId);
-    console.log('🚀 ~ router.use ~ result:', result);
     [results] = result;
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
@@ -84,7 +83,6 @@ router.use('/get-event/:eventId', async (req, res) => {
 });
 
 router.post('/insert-rating/:eventId', async (req, res) => {
-  console.log('🚀 ~ router.post ~ req:', req.params.eventId, req.body);
   let status = 200;
   let message = 'OK';
   try {
