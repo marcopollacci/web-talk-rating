@@ -5,27 +5,28 @@ import {
 
 export const mappingRating = (result: GetAllEventsRatingResponse[]) =>
   result.reduce((acc, curr) => {
+    const valueToNumber = Number(curr.value);
     const findIdEventIndex = acc.findIndex(
       (el) => el.id_event === curr.id_event
     );
     if (findIdEventIndex === -1) {
-      const valueToPush = [curr.value];
+      const valueToPush = [valueToNumber];
       acc.push({
         ...curr,
-        value: valueToPush,
+        ratings: valueToPush,
         average: calculateAverage(valueToPush),
       });
     } else {
-      acc[findIdEventIndex].value.push(curr.value);
+      acc[findIdEventIndex].ratings.push(valueToNumber);
       acc[findIdEventIndex].average = calculateAverage(
-        acc[findIdEventIndex].value
+        acc[findIdEventIndex].ratings
       );
     }
 
     return acc;
   }, [] as GetAllEventsRatingMapped[]);
 
-const calculateAverage = (values: string[]) => {
-  const sum = values.reduce((acc, curr) => acc + +curr, 0);
+const calculateAverage = (values: number[]) => {
+  const sum = values.reduce((acc, curr) => acc + curr, 0);
   return sum / values.length;
 };

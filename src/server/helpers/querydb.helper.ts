@@ -1,5 +1,8 @@
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
-import { GetAllEventsRatingResponse } from '../../models/rating.model';
+import {
+  GetAllEventsRatingResponse,
+  queryEvents,
+} from '../../models/rating.model';
 
 export class QueryDBHelper {
   static #istance: QueryDBHelper;
@@ -23,8 +26,16 @@ export class QueryDBHelper {
       .#neonObj`SELECT name_event, year, description FROM events;`;
   }
 
-  async getAllEventsRating<T>() {
+  async getAllEventsRating<T>(event: queryEvents): Promise<T> {
+    if (event) return this.getSingleEventRating<T>(event);
     return (await this.#neonObj`SELECT * from events_rating;`) as T;
+  }
+
+  async getSingleEventRating<T>(event: string): Promise<T> {
+    return (await this.#neonObj.query(
+      `SELECT * FROM events_rating WHERE id_event = $1;`,
+      [event]
+    )) as T;
   }
 
   async setSchema() {

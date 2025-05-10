@@ -1,6 +1,9 @@
 import express from 'express';
 import { QueryDBHelper } from '../helpers/querydb.helper';
-import { GetAllEventsRatingResponse } from '../../models/rating.model';
+import {
+  GetAllEventsRatingResponse,
+  queryEvents,
+} from '../../models/rating.model';
 import { mappingRating } from '../helpers/rating.helper';
 
 const router = express.Router();
@@ -25,14 +28,14 @@ router.use('/up-neon', async (_req, res) => {
   });
 });
 
-router.use('/get-all-events-rating', async (_req, res) => {
+router.use('/get-all-events-rating', async (req, res) => {
   let status = 200;
   let results;
 
   try {
     const result = await connectionDBNeon.getAllEventsRating<
       GetAllEventsRatingResponse[]
-    >();
+    >(req.query['event'] as queryEvents);
     results = mappingRating(result);
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
