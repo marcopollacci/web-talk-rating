@@ -1,0 +1,10 @@
+<p>single-event works!</p>
+
+@if (eventData.hasValue()) {
+<pre>
+  {{ eventData.value() | json }}
+</pre>
+
+} @else {
+<p>Loading...</p>
+}

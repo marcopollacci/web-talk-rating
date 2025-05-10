@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, resource } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +7,10 @@ import { Component, inject, resource } from '@angular/core';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  readonly http = inject(HttpClient);
-  constructor() {
-    this.http.get('/api/get-all-events-rating').subscribe((data) => {
-      console.log(data);
-    });
-  }
+  // readonly http = inject(HttpClient);
+  // constructor() {
+  //   this.http.get('/api/get-all-events-rating').subscribe((data) => {
+  //     console.log(data);
+  //   });
+  // }
 }
