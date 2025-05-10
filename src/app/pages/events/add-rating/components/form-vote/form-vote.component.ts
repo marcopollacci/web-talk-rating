@@ -14,7 +14,7 @@ export class FormVoteComponent {
   emitForm = output<VoteFormInterface>();
 
   formRating = this.#fb.group({
-    rating: [1, [Validators.required, Validators.max(5)]],
+    rating: [0, [Validators.required, Validators.min(0.5), Validators.max(5)]],
     comment: [''],
   });
 

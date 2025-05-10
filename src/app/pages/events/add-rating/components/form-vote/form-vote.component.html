@@ -1,17 +1,20 @@
 <form [formGroup]="formRating" (ngSubmit)="onSubmit()">
   <input
     formControlName="rating"
-    type="range"
-    style="--val: 1"
-    value="1"
-    min="1"
+    class="rating"
     max="5"
-    oninput="this.style='--val:'+this.value"
+    oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
+    step="0.5"
+    style="--value: 0"
+    type="range"
   />
-  <span>Actual vote: {{ formRating.value.rating }}</span>
-  <textarea formControlName="comment"></textarea>
-  <button type="submit">Submit</button>
+
+  <span>Actual rating: {{ formRating.value.rating }}</span>
+
+  <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
+  <button [disabled]="formRating.invalid" type="submit">Submit</button>
 </form>
 <pre>
   {{ formRating.value | json }}
+  {{ formRating.invalid }}
 </pre>
