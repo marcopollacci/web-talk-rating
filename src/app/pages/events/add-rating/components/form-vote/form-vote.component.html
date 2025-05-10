@@ -1,0 +1,16 @@
+<form [formGroup]="formRating" (ngSubmit)="onSubmit()">
+  <input
+    formControlName="rating"
+    type="range"
+    style="--val: 1"
+    value="1"
+    min="1"
+    max="5"
+    oninput="this.style='--val:'+this.value"
+  />
+  <textarea formControlName="comment"></textarea>
+  <button type="submit">Submit</button>
+</form>
+<pre>
+  {{ formRating.value | json }}
+</pre>

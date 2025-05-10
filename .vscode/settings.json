@@ -20,5 +20,5 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.editor.tabSizing": "shrink",
-  "conventionalCommits.scopes": ["project", "server-side", "events"]
+  "conventionalCommits.scopes": ["project", "server-side", "events", "rating"]
 }

@@ -5,7 +5,14 @@ export interface GetAllEventsRatingResponse {
   date_event_from: Date;
   date_event_to: Date;
   year: number;
-  value: string;
+  value?: string;
+}
+
+export interface GetSingleEventResponse {
+  name_event: string;
+  description: string;
+  date_event_from: string;
+  date_event_to: string;
 }
 
 export interface GetAllEventsRatingMapped

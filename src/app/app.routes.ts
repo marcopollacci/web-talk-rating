@@ -8,6 +8,13 @@ const eventsRoutes: Routes = [
         (c) => c.SingleEventComponent
       ),
   },
+  {
+    path: 'add-rating/:eventId',
+    loadComponent: () =>
+      import('./pages/events/add-rating/add-rating.component').then(
+        (c) => c.AddRatingComponent
+      ),
+  },
 ];
 
 export const routes: Routes = [

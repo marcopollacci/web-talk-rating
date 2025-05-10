@@ -1,0 +1,326 @@
+// Reference: https://codepen.io/alvaromontoro/pen/Wbezqmy
+
+@property --satisfaction-col {
+  syntax: "<color>";
+  initial-value: red;
+  inherits: true;
+}
+
+@property --satisfaction-deg {
+  syntax: "<angle>";
+  initial-value: 180deg;
+  inherits: true;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  textarea {
+    min-height: 6em;
+    margin-block: 3em 2em;
+  }
+}
+
+@keyframes animationSatisfaction1 {
+  from {
+    --satisfaction-pct: 0%;
+    --satisfaction-col: #f000;
+  }
+  to {
+    --satisfaction-pct: 99%;
+    --satisfaction-col: #f008;
+  }
+}
+
+@keyframes animationSatisfaction2 {
+  from {
+    --satisfaction-pct: 10%;
+    --satisfaction-col: #f000;
+  }
+  to {
+    --satisfaction-pct: 15%;
+    --satisfaction-col: #f004;
+  }
+}
+
+@keyframes animationSatisfaction3 {
+  0%,
+  100% {
+    --satisfaction-deg: 180deg;
+  }
+  25% {
+    --satisfaction-deg: 175deg;
+  }
+  75% {
+    --satisfaction-deg: 185deg;
+  }
+}
+
+@keyframes animationSatisfaction4 {
+  0% {
+    --satisfaction-pct: 0%;
+  }
+  80% {
+    --satisfaction-pct: 66%;
+  }
+  100% {
+    --satisfaction-pct: 50%;
+  }
+}
+
+@keyframes animationSatisfaction5 {
+  0% {
+    --satisfaction-pct: 0%;
+    --satisfaction-col: #fff0;
+  }
+  70% {
+    --satisfaction-pct: 80%;
+  }
+  100% {
+    --satisfaction-pct: 65%;
+    --satisfaction-col: #fff6;
+  }
+}
+
+input[type="range"] {
+  --size: 3em;
+  --bg: #ddd;
+  --line: #3213;
+  --base: #fc0;
+  --satisfaction-pct: 0%;
+  --satisfaction-col: #0000;
+  /* this will be used in two descendants, moving it up */
+  --active-eyes: radial-gradient(
+        closest-side circle at 33.5% 48.5%,
+        #fff calc(6% - 1px),
+        #0000 6%
+      )
+      0 0 / 3em 3em,
+    radial-gradient(
+        closest-side circle at 63.5% 48.5%,
+        #fff calc(6% - 1px),
+        #0000 6%
+      )
+      0 0 / 3em 3em,
+    radial-gradient(
+        closest-side circle at 35% 50%,
+        #000 calc(13% - 1px),
+        #0000 13%
+      )
+      0 0 / 3em 3em,
+    radial-gradient(
+        closest-side circle at 65% 50%,
+        #000 calc(13% - 1px),
+        #0000 13%
+      )
+      0 0 / 3em 3em;
+  font-size: 2em;
+  appearance: none;
+  container-type: inline-size;
+  height: var(--size);
+  width: calc(var(--size) * 5);
+  border: none; /* Firefox adds a default border */
+  position: relative;
+  background:
+    /* mouths */ radial-gradient(
+        50% 100% at 50% 105%,
+        #0000 calc(85% - 1px),
+        var(--line) 85% calc(100% - 1px),
+        #0000
+      )
+      0.9em 70% / 1.2em 0.5em no-repeat,
+    radial-gradient(
+        45% 75% at 50% 110%,
+        #0000 calc(75% - 1px),
+        var(--line) 75% calc(100% - 1px),
+        #0000
+      )
+      4em 65% / 1em 0.35em no-repeat,
+    linear-gradient(#0000 33.33%, var(--line) 0 66.66%, #0000 0) 6.9em 69% /
+      1.2em 0.3em no-repeat,
+    radial-gradient(
+        35% 70% at 50% -10%,
+        #0000 calc(72% - 1px),
+        var(--line) 72% calc(100% - 1px),
+        #0000
+      )
+      9.9em 75% / 1.2em 0.35em no-repeat,
+    radial-gradient(
+        45% 100% at 50% -5%,
+        #0000 calc(85% - 1px),
+        var(--line) 85% calc(100% - 1px),
+        #0000
+      )
+      12.8em 75% / 1.4em 0.5em no-repeat,
+    /* face + eyes */
+      radial-gradient(
+        closest-side circle at 35% 50%,
+        var(--line) calc(13% - 1px),
+        #0000 13%
+      )
+      0 0 / 3em 3em,
+    radial-gradient(
+        closest-side circle at 65% 50%,
+        var(--line) calc(13% - 1px),
+        #0000 13%
+      )
+      0 0 / 3em 3em,
+    radial-gradient(closest-side circle, #ddd calc(90% - 1px), #0000 90%) 0 0 /
+      3em 3em;
+  border: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color: inherit;
+  outline-offset: 5px;
+}
+
+input[type="range"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(3em * (var(--val) - 1));
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border: 0.1em dashed currentcolor;
+  box-sizing: border-box;
+}
+
+input[type="range"][style*="1"] {
+  animation: animationSatisfaction1 0.2s forwards;
+  --face: radial-gradient(
+        50% 100% at 50% 105%,
+        #0000 calc(85% - 1px),
+        #000 85% calc(100% - 1px),
+        #0000
+      )
+      0.9em 70% / 1.2em 0.5em no-repeat,
+    radial-gradient(
+        90% 90% at 50% 10%,
+        var(--satisfaction-col),
+        #f000 var(--satisfaction-pct)
+      )
+      0 0 / 3em 3em;
+}
+
+input[type="range"][style*="2"] {
+  animation: animationSatisfaction2 0.4s forwards;
+  --face: radial-gradient(
+        45% 75% at 50% 110%,
+        #0000 calc(75% - 1px),
+        #000 75% calc(100% - 1px),
+        #0000
+      )
+      1em 65% / 1em var(--satisfaction-pct) no-repeat,
+    radial-gradient(90% 90% at 50% 10%, var(--satisfaction-col), #f000 70%) 0
+      var(--satisfaction-pct) / 3em 3em;
+}
+
+input[type="range"][style*="3"] {
+  animation: animationSatisfaction3 0.55s forwards;
+  --face: linear-gradient(
+      var(--satisfaction-deg),
+      #0000 33.33%,
+      #000 0 66.66%,
+      #0000 0
+    )
+    0.9em 69% / 1.2em 0.3em no-repeat;
+}
+
+input[type="range"][style*="4"] {
+  animation: animationSatisfaction4 0.35s forwards;
+  --face: radial-gradient(
+        35% 70% at 50% -10%,
+        #0000 calc(72% - 1px),
+        #000 72% calc(100% - 1px),
+        #0000
+      )
+      0.9em 75% / 1.2em 0.35em no-repeat,
+    radial-gradient(
+        farthest-side,
+        #f004 calc(var(--satisfaction-pct) - 1px),
+        #0000 var(--satisfaction-pct)
+      )
+      0.3em 57% / 1.1em 0.6em,
+    radial-gradient(
+        farthest-side,
+        #f004 calc(var(--satisfaction-pct) - 1px),
+        #0000 var(--satisfaction-pct)
+      )
+      1.6em 57% / 1.1em 0.6em;
+}
+
+input[type="range"][style*="5"] {
+  animation: animationSatisfaction5 0.25s forwards;
+  --face: radial-gradient(
+        45% 100% at 50% -5%,
+        #0000 calc(85% - 1px),
+        #000 85% calc(100% - 1px),
+        #0000
+      )
+      0.8em 75% / 1.4em 0.5em no-repeat,
+    radial-gradient(
+        farthest-side,
+        #f006 calc(var(--satisfaction-pct) - 1px),
+        #0000 var(--satisfaction-pct)
+      )
+      0.25em 57% / 1em 0.65em,
+    radial-gradient(
+        farthest-side,
+        #f006 calc(var(--satisfaction-pct) - 1px),
+        #0000 var(--satisfaction-pct)
+      )
+      1.75em 57% / 1em 0.65em,
+    radial-gradient(
+        farthest-side circle at 50% 20%,
+        var(--satisfaction-col),
+        #0000 60%
+      )
+      0 0% / 3em 3em;
+}
+
+/* Thumb for Chrome and Safari */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 3em;
+  aspect-ratio: 1;
+  pointer-events: none;
+  mask: radial-gradient(closest-side circle, #fc0 calc(90% - 1px), #0000 90%) 0
+    0 / 3em 3em;
+  background:
+    /* eyes */ var(--active-eyes), /* mouths */ var(--face),
+    /* base color*/ var(--base);
+  background-repeat: no-repeat;
+  box-shadow: none; /* Safari adds a box-shadow when using drop-shadow on iOS, remove manually */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Thumb for Firefox */
+input[type="range"]::-moz-range-thumb {
+  --bg: #fc0;
+  --line: #000;
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 3em;
+  height: 3em;
+  pointer-events: none;
+  border: none;
+  mask: radial-gradient(closest-side circle, #fc0 calc(90% - 1px), #0000 90%) 0
+    0 / 3em 3em;
+  background:
+    /* eyes */ var(--active-eyes), /* mouths */ var(--face),
+    /* base color*/ var(--base);
+  background-repeat: no-repeat;
+  box-shadow: none; /* Safari adds a box-shadow when using drop-shadow on iOS, remove manually */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* if the user selected reduction motion, remove the animations */
+@media (prefers-reduced-motion) {
+  input[type="range"] {
+    animation-duration: 0s !important;
+  }
+}

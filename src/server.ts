@@ -4,11 +4,11 @@ import {
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
+import 'dotenv/config';
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readRouter } from './server/routes/read.route';
-import 'dotenv/config';
+import { apiRouter } from './server/routes/api.route';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -28,7 +28,7 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
-app.use('/api', readRouter);
+app.use('/api', apiRouter);
 
 /**
  * Serve static files from /browser

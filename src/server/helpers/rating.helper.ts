@@ -11,6 +11,7 @@ export const mappingRating = (result: GetAllEventsRatingResponse[]) =>
     );
     if (findIdEventIndex === -1) {
       const valueToPush = [valueToNumber];
+      delete curr.value;
       acc.push({
         ...curr,
         ratings: valueToPush,
@@ -22,7 +23,6 @@ export const mappingRating = (result: GetAllEventsRatingResponse[]) =>
         acc[findIdEventIndex].ratings
       );
     }
-
     return acc;
   }, [] as GetAllEventsRatingMapped[]);
 

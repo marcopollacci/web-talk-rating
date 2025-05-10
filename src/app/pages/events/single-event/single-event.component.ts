@@ -15,6 +15,6 @@ export class SingleEventComponent {
 
   eventData = rxResource({
     request: () => ({ event: this.eventId() }),
-    loader: ({ request }) => this.#eventSrv.getSingleEventevent(request.event),
+    loader: ({ request }) => this.#eventSrv.getSingleEventRating(request.event),
   });
 }

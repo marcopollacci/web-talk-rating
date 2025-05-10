@@ -1,8 +1,6 @@
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
-import {
-  GetAllEventsRatingResponse,
-  queryEvents,
-} from '../../models/rating.model';
+import { VoteFormInterface } from '@pages/events/models/vote.model';
+import { queryEvents } from '../../models/rating.model';
 
 export class QueryDBHelper {
   static #istance: QueryDBHelper;
@@ -26,6 +24,13 @@ export class QueryDBHelper {
       .#neonObj`SELECT name_event, year, description FROM events;`;
   }
 
+  async getEvent(eventId: string) {
+    return await this.#neonObj.query(
+      `SELECT name_event, description, date_event_from, date_event_to  FROM events WHERE random_value = $1`,
+      [eventId]
+    );
+  }
+
   async getAllEventsRating<T>(event: queryEvents): Promise<T> {
     if (event) return this.getSingleEventRating<T>(event);
     return (await this.#neonObj`SELECT * from events_rating;`) as T;
@@ -36,6 +41,19 @@ export class QueryDBHelper {
       `SELECT * FROM events_rating WHERE id_event = $1;`,
       [event]
     )) as T;
+  }
+
+  async insertRating(eventId: string, formData: VoteFormInterface) {
+    //get real ID
+    const [realEventId] = await this.#neonObj.query(
+      `SELECT id FROM events WHERE random_value = $1;`,
+      [eventId]
+    );
+
+    return await this.#neonObj.query(
+      `INSERT INTO rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
+      [realEventId['id'], formData.rating, formData.comment]
+    );
   }
 
   async setSchema() {
