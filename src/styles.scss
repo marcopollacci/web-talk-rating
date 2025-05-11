@@ -1,6 +1,15 @@
-body {
+@mixin base-font {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+}
+
+body {
+  @include base-font();
+}
+
+textarea,
+input {
+  @include base-font();
 }
