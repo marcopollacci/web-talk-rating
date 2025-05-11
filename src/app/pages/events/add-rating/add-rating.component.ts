@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
 import { catchError, filter, of, tap } from 'rxjs';
@@ -8,7 +7,7 @@ import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
 @Component({
   selector: 'app-add-rating',
-  imports: [FormVoteComponent, DatePipe],
+  imports: [FormVoteComponent],
   templateUrl: './add-rating.component.html',
   styleUrl: './add-rating.component.scss',
 })

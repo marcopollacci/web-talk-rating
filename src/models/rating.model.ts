@@ -10,6 +10,7 @@ export interface GetAllEventsRatingResponse {
 
 export interface GetSingleEventResponse {
   name_event: string;
+  talk: string;
   description: string;
   date_event_from: string;
   date_event_to: string;

@@ -1,7 +1,6 @@
 <form [formGroup]="formRating" (ngSubmit)="onSubmit()">
   <input
     formControlName="rating"
-    class="rating"
     max="5"
     oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
     step="0.5"
@@ -9,7 +8,9 @@
     type="range"
   />
 
-  <span>Slide to rating. Actual rating: {{ formRating.value.rating }}</span>
+  <span
+    ><b>Slide to rating.</b> Actual rate: {{ formRating.value.rating }}</span
+  >
 
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
@@ -18,3 +19,5 @@
   {{ formRating.value | json }}
   {{ formRating.invalid }}
 </pre>
+
+<app-toast [message]="'ciaone prontone'" [type]="'success'"></app-toast>
