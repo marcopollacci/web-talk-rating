@@ -2,11 +2,10 @@ import { JsonPipe } from '@angular/common';
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VoteFormInterface } from '@pages/events/models/vote.model';
-import { ToastComponent } from '../../../../../common/components/toast/toast.component';
 
 @Component({
   selector: 'app-form-vote',
-  imports: [ReactiveFormsModule, JsonPipe, ToastComponent],
+  imports: [ReactiveFormsModule, JsonPipe],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
 })
@@ -20,7 +19,6 @@ export class FormVoteComponent {
   });
 
   onSubmit() {
-    console.log('mamma');
     this.emitForm.emit(this.formRating.value as VoteFormInterface);
   }
 }

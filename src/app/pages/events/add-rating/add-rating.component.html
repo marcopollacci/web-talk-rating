@@ -12,4 +12,11 @@
 </h3>
 
 <app-form-vote (emitForm)="onSubmitForm($event)"></app-form-vote>
-} }
+} } @if(stateSave() !== null) {
+<app-toast
+  [message]="stateSave()!.message"
+  [type]="stateSave()!.type"
+></app-toast>
+}
+
+<app-toast [message]="'ehyeìì'" [type]="'error'"></app-toast>

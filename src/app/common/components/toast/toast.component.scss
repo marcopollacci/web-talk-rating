@@ -3,14 +3,32 @@
   column-gap: 0.5em;
   padding: 0.5em;
   border-radius: 0.5em;
+  position: absolute;
+  inset-block-start: calc(0% + 1rem);
+  font-size: 1.1rem;
+  width: calc(100% - 2rem);
+  opacity: 0;
+  transition: opacity 1s ease;
+  &[toast-type] {
+    opacity: 1;
+  }
   &[toast-type="success"] {
     background-color: #17a948ff;
+    color: #ffffff;
+  }
+  &[toast-type="error"] {
+    background-color: #ff0000ff;
     color: #ffffff;
   }
 }
 
 h2 {
   margin-block: 0em;
+}
+
+[role="img"] {
+  margin-block-start: 0.3rem;
+  font-size: 1.5rem;
 }
 
 p {

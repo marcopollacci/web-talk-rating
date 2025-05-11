@@ -1,8 +1,5 @@
 import { Component, input } from '@angular/core';
-
-const TYPE_TOAST = ['success', 'error'] as const;
-
-type ToastType = (typeof TYPE_TOAST)[number];
+import { ToastType } from '@common/models/toast.model';
 
 @Component({
   selector: 'app-toast',

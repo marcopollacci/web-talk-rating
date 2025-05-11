@@ -1,13 +1,15 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
+import { ToastComponent } from '@common/components/toast/toast.component';
+import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of, tap } from 'rxjs';
+import { catchError, filter, of, switchMap, tap, timer } from 'rxjs';
 import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
 import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
 @Component({
   selector: 'app-add-rating',
-  imports: [FormVoteComponent],
+  imports: [FormVoteComponent, ToastComponent],
   templateUrl: './add-rating.component.html',
   styleUrl: './add-rating.component.scss',
 })
@@ -17,6 +19,7 @@ export class AddRatingComponent {
   canVote = signal<boolean>(false);
   noEventFound = signal<boolean>(false);
   eventData: GetSingleEventResponse | null = null;
+  stateSave = signal<ToastInterface | null>(null);
 
   constructor() {
     effect(() => {
@@ -46,6 +49,26 @@ export class AddRatingComponent {
   }
 
   onSubmitForm(event: VoteFormInterface) {
-    this.#eventSrv.insertRating(this.eventId(), event).subscribe();
+    this.#eventSrv
+      .insertRating(this.eventId(), event)
+      .pipe(
+        catchError(() => {
+          this.stateSave.set({
+            type: 'error',
+            message: 'Error saving your vote',
+          });
+          return of(null);
+        }),
+        switchMap(() => {
+          this.stateSave.set({
+            type: 'success',
+            message: 'Vote saved',
+          });
+          return timer(3000);
+        })
+      )
+      .subscribe(() => {
+        this.stateSave.set(null);
+      });
   }
 }
