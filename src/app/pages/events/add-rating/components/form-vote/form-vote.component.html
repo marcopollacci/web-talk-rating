@@ -9,7 +9,7 @@
     type="range"
   />
 
-  <span>Actual rating: {{ formRating.value.rating }}</span>
+  <span>Slide to rating. Actual rating: {{ formRating.value.rating }}</span>
 
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
