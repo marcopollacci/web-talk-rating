@@ -18,11 +18,4 @@ export const serverRoutes: ServerRoute[] = [
       return MOCKED_EVENTS;
     },
   },
-  {
-    path: 'events/single-events/:eventId',
-    renderMode: RenderMode.Prerender,
-    async getPrerenderParams() {
-      return MOCKED_EVENTS;
-    },
-  },
 ];

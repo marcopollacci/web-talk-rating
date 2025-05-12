@@ -1,6 +1,6 @@
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VoteFormInterface } from '@pages/events/models/vote.model';
+import { VoteFormInterface } from '../../../models/vote.model';
 
 @Component({
   selector: 'app-form-vote',

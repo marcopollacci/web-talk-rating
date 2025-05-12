@@ -20,7 +20,7 @@
     "paths": {
       "@serverModels/*": ["./src/models/*"],
       "@common/*": ["./src/app/common/*"],
-      "@pages/*": ["./src/app/pages/*"]
+      "@features/*": ["./src/app/features/*"]
     }
   },
   "angularCompilerOptions": {

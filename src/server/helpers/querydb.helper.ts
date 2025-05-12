@@ -1,5 +1,5 @@
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
-import { VoteFormInterface } from '@pages/events/models/vote.model';
+import { VoteFormInterface } from '../../app/features/events/models/vote.model';
 import { queryEvents } from '../../models/rating.model';
 
 export class QueryDBHelper {
