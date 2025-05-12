@@ -57,6 +57,8 @@ export class QueryDBHelper {
   }
 
   async setSchema() {
-    await this.#neonObj.query(`SET SCHEMA '${process.env['NEON_SCHEMA']}';`);
+    await this.#neonObj.query(
+      `SET search_path TO ${process.env['NEON_SCHEMA']};`
+    );
   }
 }

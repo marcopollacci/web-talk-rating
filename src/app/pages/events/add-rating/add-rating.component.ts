@@ -2,7 +2,7 @@ import { Component, effect, inject, input, signal } from '@angular/core';
 import { ToastComponent } from '@common/components/toast/toast.component';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of, switchMap, tap, timer } from 'rxjs';
+import { catchError, filter, of, tap, timer } from 'rxjs';
 import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
 import { FormVoteComponent } from './components/form-vote/form-vote.component';
@@ -52,27 +52,34 @@ export class AddRatingComponent {
   onSubmitForm(event: VoteFormInterface) {
     this.hiddenToast.set(false);
     this.stateSave.set(null);
-    this.#eventSrv
-      .insertRating(this.eventId(), event)
-      .pipe(
-        catchError(() => {
-          this.stateSave.set({
-            type: 'error',
-            message: 'Error saving your vote',
-          });
-          return of(null);
-        }),
-        switchMap(() => {
-          this.stateSave.set({
-            type: 'success',
-            message: 'Vote saved',
-          });
-          return of(null);
-        }),
-        switchMap(() => timer(3000))
-      )
-      .subscribe(() => {
-        this.hiddenToast.set(true);
-      });
+    this.stateSave.set({
+      type: 'success',
+      message: 'Vote saved',
+    });
+    timer(3000).subscribe(() => {
+      this.hiddenToast.set(true);
+    });
+    // this.#eventSrv
+    //   .insertRating(this.eventId(), event)
+    //   .pipe(
+    //     catchError(() => {
+    //       this.stateSave.set({
+    //         type: 'error',
+    //         message: 'Error saving your vote',
+    //       });
+    //       return of(null);
+    //     }),
+    //     switchMap(() => {
+    //       this.stateSave.set({
+    //         type: 'success',
+    //         message: 'Vote saved',
+    //       });
+    //       return of(null);
+    //     }),
+    //     switchMap(() => timer(3000))
+    //   )
+    //   .subscribe(() => {
+    //     this.hiddenToast.set(true);
+    //   });
   }
 }
