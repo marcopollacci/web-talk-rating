@@ -20,6 +20,7 @@ export class AddRatingComponent {
   noEventFound = signal<boolean>(false);
   eventData: GetSingleEventResponse | null = null;
   stateSave = signal<ToastInterface | null>(null);
+  hiddenToast = signal<boolean>(true);
 
   constructor() {
     effect(() => {
@@ -49,6 +50,8 @@ export class AddRatingComponent {
   }
 
   onSubmitForm(event: VoteFormInterface) {
+    this.hiddenToast.set(false);
+    this.stateSave.set(null);
     this.#eventSrv
       .insertRating(this.eventId(), event)
       .pipe(
@@ -64,11 +67,12 @@ export class AddRatingComponent {
             type: 'success',
             message: 'Vote saved',
           });
-          return timer(3000);
-        })
+          return of(null);
+        }),
+        switchMap(() => timer(3000))
       )
       .subscribe(() => {
-        this.stateSave.set(null);
+        this.hiddenToast.set(true);
       });
   }
 }

@@ -9,7 +9,7 @@
   width: calc(100% - 2rem);
   opacity: 0;
   transition: opacity 1s ease;
-  &[toast-type] {
+  &[aria-hidden="false"] {
     opacity: 1;
   }
   &[toast-type="success"] {
