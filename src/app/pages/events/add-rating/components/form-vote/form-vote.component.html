@@ -9,13 +9,10 @@
   />
 
   <span
-    ><b>Slide to rating.</b> Actual rate: {{ formRating.value.rating }}</span
+    ><b>Slide or tap to rating.</b> Actual rate:
+    {{ formRating.value.rating }}</span
   >
 
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
 </form>
-<pre>
-  {{ formRating.value | json }}
-  {{ formRating.invalid }}
-</pre>

@@ -1,11 +1,10 @@
-import { JsonPipe } from '@angular/common';
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VoteFormInterface } from '@pages/events/models/vote.model';
 
 @Component({
   selector: 'app-form-vote',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
 })
