@@ -50,6 +50,8 @@ export class AddRatingComponent {
   }
 
   onSubmitForm(event: VoteFormInterface) {
+    this.hiddenToast.set(false);
+    this.stateSave.set(null);
     this.#eventSrv
       .insertRating(this.eventId(), event)
       .pipe(

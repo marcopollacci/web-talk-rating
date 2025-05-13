@@ -4,6 +4,7 @@ import { queryEvents } from '../../models/rating.model';
 
 export class QueryDBHelper {
   static #istance: QueryDBHelper;
+  readonly #schemaPrefix = process.env['NEON_SCHEMA'] || 'public';
   #neonObj!: NeonQueryFunction<false, false>;
 
   constructor(database_url: string) {
@@ -20,25 +21,30 @@ export class QueryDBHelper {
   }
 
   async getAllEvents() {
-    return await this
-      .#neonObj`SELECT name_event, year, description FROM events;`;
+    return await this.#neonObj`SELECT name_event, year, description FROM ${
+      this.#schemaPrefix
+    }.events;`;
   }
 
   async getEvent(eventId: string) {
     return await this.#neonObj.query(
-      `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk FROM events WHERE random_value = $1`,
+      `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk FROM ${
+        this.#schemaPrefix
+      }.events WHERE random_value = $1`,
       [eventId]
     );
   }
 
   async getAllEventsRating<T>(event: queryEvents): Promise<T> {
     if (event) return this.getSingleEventRating<T>(event);
-    return (await this.#neonObj`SELECT * from events_rating;`) as T;
+    return (await this.#neonObj`SELECT * from ${
+      this.#schemaPrefix
+    }.events_rating;`) as T;
   }
 
   async getSingleEventRating<T>(event: string): Promise<T> {
     return (await this.#neonObj.query(
-      `SELECT * FROM events_rating WHERE id_event = $1;`,
+      `SELECT * FROM ${this.#schemaPrefix}.events_rating WHERE id_event = $1;`,
       [event]
     )) as T;
   }
@@ -46,19 +52,15 @@ export class QueryDBHelper {
   async insertRating(eventId: string, formData: VoteFormInterface) {
     //get real ID
     const [realEventId] = await this.#neonObj.query(
-      `SELECT id FROM events WHERE random_value = $1;`,
+      `SELECT id FROM ${this.#schemaPrefix}.events WHERE random_value = $1;`,
       [eventId]
     );
 
     return await this.#neonObj.query(
-      `INSERT INTO rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
+      `INSERT INTO ${
+        this.#schemaPrefix
+      }.rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
       [realEventId['id'], formData.rating, formData.comment]
-    );
-  }
-
-  async setSchema() {
-    await this.#neonObj.query(
-      `SET search_path TO ${process.env['NEON_SCHEMA']};`
     );
   }
 }

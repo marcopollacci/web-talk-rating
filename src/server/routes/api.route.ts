@@ -8,12 +8,11 @@ import { mappingRating } from '../helpers/rating.helper';
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
-await connectionDBNeon.setSchema();
 const MESSAGE_KO = { message: 'KO' } as const;
 
 router.use(express.json());
 
-router.use('/up-neon', async (_req, res) => {
+router.get('/up-neon', async (_req, res) => {
   let status = 200;
   let message = 'OK';
   try {
@@ -30,7 +29,7 @@ router.use('/up-neon', async (_req, res) => {
   });
 });
 
-router.use('/get-all-events-rating', async (req, res) => {
+router.get('/get-all-events-rating', async (req, res) => {
   let status = 200;
   let results;
 
@@ -48,7 +47,7 @@ router.use('/get-all-events-rating', async (req, res) => {
   res.json(results);
 });
 
-router.use('/get-all-events', async (_req, res) => {
+router.get('/get-all-events', async (_req, res) => {
   let status = 200;
   let results;
 
@@ -65,7 +64,7 @@ router.use('/get-all-events', async (_req, res) => {
   res.json(results);
 });
 
-router.use('/get-event/:eventId', async (req, res) => {
+router.get('/get-event/:eventId', async (req, res) => {
   let status = 200;
   let results;
 
