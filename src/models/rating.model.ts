@@ -5,7 +5,8 @@ export interface GetAllEventsRatingResponse {
   date_event_from: Date;
   date_event_to: Date;
   year: number;
-  value?: string;
+  number_of_rating: number;
+  average: number;
 }
 
 export interface GetSingleEventResponse {
@@ -16,12 +17,6 @@ export interface GetSingleEventResponse {
   date_event_to: string;
   vote_enabled: boolean;
   url_image: string;
-}
-
-export interface GetAllEventsRatingMapped
-  extends Omit<GetAllEventsRatingResponse, 'value'> {
-  ratings: number[];
-  average: number;
 }
 
 export type queryEvents = string | undefined;
