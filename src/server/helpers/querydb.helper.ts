@@ -28,7 +28,7 @@ export class QueryDBHelper {
 
   async getEvent(eventId: string) {
     return await this.#neonObj.query(
-      `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk FROM ${
+      `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk, url_image FROM ${
         this.#schemaPrefix
       }.events WHERE random_value = $1`,
       [eventId]
@@ -37,14 +37,16 @@ export class QueryDBHelper {
 
   async getAllEventsRating<T>(event: queryEvents): Promise<T> {
     if (event) return this.getSingleEventRating<T>(event);
-    return (await this.#neonObj`SELECT * from ${
-      this.#schemaPrefix
-    }.events_rating;`) as T;
+    return (await this.#neonObj.query(
+      `SELECT * from ${this.#schemaPrefix}.events_rating_avg;`
+    )) as T;
   }
 
   async getSingleEventRating<T>(event: string): Promise<T> {
     return (await this.#neonObj.query(
-      `SELECT * FROM ${this.#schemaPrefix}.events_rating WHERE id_event = $1;`,
+      `SELECT * FROM ${
+        this.#schemaPrefix
+      }.events_rating_avg WHERE id_event = $1;`,
       [event]
     )) as T;
   }

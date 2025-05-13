@@ -17,7 +17,7 @@ export class AddRatingComponent {
   #eventSrv = inject(EventService);
   eventId = input.required<string>();
   canVote = signal<boolean>(false);
-  noEventFound = signal<boolean>(false);
+  noEventFound = signal<boolean | undefined>(undefined);
   eventData: GetSingleEventResponse | null = null;
   stateSave = signal<ToastInterface | null>(null);
   hiddenToast = signal<boolean>(true);

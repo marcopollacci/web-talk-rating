@@ -1,4 +1,4 @@
-@if(noEventFound()) {
+@if(noEventFound() === true) {
 <h1>No event found</h1>
 } @else if (!canVote()) {
 <h1>Feedback Vote disabled</h1>
@@ -13,6 +13,8 @@
 <p>Please leave your feedback below</p>
 
 <app-form-vote (emitForm)="onSubmitForm($event)"></app-form-vote>
+} @else {
+<h1>Loading...</h1>
 } }
 
 <app-toast

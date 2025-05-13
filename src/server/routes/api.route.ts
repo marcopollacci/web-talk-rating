@@ -4,7 +4,6 @@ import {
   queryEvents,
 } from '../../models/rating.model';
 import { QueryDBHelper } from '../helpers/querydb.helper';
-import { mappingRating } from '../helpers/rating.helper';
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
@@ -34,10 +33,9 @@ router.get('/get-all-events-rating', async (req, res) => {
   let results;
 
   try {
-    const result = await connectionDBNeon.getAllEventsRating<
+    results = await connectionDBNeon.getAllEventsRating<
       GetAllEventsRatingResponse[]
     >(req.query['event'] as queryEvents);
-    results = mappingRating(result);
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
     status = 500;

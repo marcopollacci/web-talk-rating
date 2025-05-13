@@ -36,8 +36,10 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+/docker
 
 # System files
 .DS_Store
 Thumbs.db
-.env
+.env*
+.dockerignore

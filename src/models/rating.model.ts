@@ -15,6 +15,7 @@ export interface GetSingleEventResponse {
   date_event_from: string;
   date_event_to: string;
   vote_enabled: boolean;
+  url_image: string;
 }
 
 export interface GetAllEventsRatingMapped
