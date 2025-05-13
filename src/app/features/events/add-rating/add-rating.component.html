@@ -3,16 +3,20 @@
 } @else if (!canVote()) {
 <h1>Feedback Vote disabled</h1>
 }@else { @if(eventData) {
+<span role="heading">🚀</span>
 <h1>Feedback form</h1>
 <h3>
-  Thank you for attended at my talk &#64; <b>{{ eventData.name_event }}</b>
+  Thank you for attended my talk at <b>{{ eventData.name_event }}</b>
 </h3>
 <h3>
   <b>" {{ eventData.talk }} "</b>
 </h3>
-<p>Please leave your feedback below</p>
+<p>I love to hear your thoughts!</p>
 
-<app-form-vote (emitForm)="onSubmitForm($event)"></app-form-vote>
+<app-form-vote
+  [(resetForm)]="resetForm"
+  (emitForm)="onSubmitForm($event)"
+></app-form-vote>
 } @else {
 <h1>Loading...</h1>
 } }

@@ -1,3 +1,9 @@
+:root {
+  --background-color: hsl(228, 5%, 15%);
+  --text-color: hsl(228, 5%, 80%);
+  --fill-stars: #ffffff;
+}
+
 @mixin base-font {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -6,6 +12,10 @@
 }
 
 body {
+  width: 100%;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
   @include base-font();
   @for $i from 1 through 6 {
     h#{$i} {
@@ -17,4 +27,12 @@ body {
 textarea,
 input {
   @include base-font();
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #fff;
+    --text-color: #222;
+    --fill-stars: rgba(100, 100, 100, 0.15);
+  }
 }

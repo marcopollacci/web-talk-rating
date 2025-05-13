@@ -21,6 +21,7 @@ export class AddRatingComponent {
   eventData: GetSingleEventResponse | null = null;
   stateSave = signal<ToastInterface | null>(null);
   hiddenToast = signal<boolean>(true);
+  resetForm = false;
 
   constructor() {
     effect(() => {
@@ -60,6 +61,7 @@ export class AddRatingComponent {
             type: 'success',
             message: 'Vote saved',
           });
+          this.resetForm = true;
           return of(null);
         }),
         catchError(() => {

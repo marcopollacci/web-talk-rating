@@ -2,9 +2,8 @@
   <input
     formControlName="rating"
     max="5"
-    oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
+    [style.--rating-value]="formRating.get('rating')?.value || 0"
     step="0.5"
-    style="--value: 0"
     type="range"
   />
 
