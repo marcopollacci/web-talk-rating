@@ -9,13 +9,6 @@ const MOCKED_EVENTS = [
 export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'events/add-rating/:eventId',
-    renderMode: RenderMode.Prerender,
-    async getPrerenderParams() {
-      return MOCKED_EVENTS;
-    },
+    renderMode: RenderMode.Server,
   },
 ];
