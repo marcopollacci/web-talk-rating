@@ -11,14 +11,10 @@ export class ImageRatingComponent {
   ratingSelected = output<number>();
 
   filterValue(ratingToCompare: number) {
-    if (this.formValueRating() >= ratingToCompare) {
+    if (this.formValueRating() === ratingToCompare) {
       return 'none';
     }
 
     return 'url(#desaturate)';
-  }
-
-  getValue(value: number) {
-    console.log('🚀 ~ ImageRatingComponent ~ getValue ~ number:', value);
   }
 }
