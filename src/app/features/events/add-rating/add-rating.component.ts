@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   Component,
   effect,
@@ -18,7 +18,7 @@ import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
 @Component({
   selector: 'app-add-rating',
-  imports: [FormVoteComponent, NgTemplateOutlet, ToastComponent],
+  imports: [FormVoteComponent, NgOptimizedImage, ToastComponent],
   templateUrl: './add-rating.component.html',
   styleUrl: './add-rating.component.scss',
 })

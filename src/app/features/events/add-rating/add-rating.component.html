@@ -1,12 +1,8 @@
 @if(noEventFound() === true) {
-<ng-container
-  *ngTemplateOutlet="emojiHeading; context: { emoji: '(╥﹏╥)' }"
-></ng-container>
+<img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
 <h1>No event found</h1>
 } @else if (!canVote()) {
-<ng-container
-  *ngTemplateOutlet="emojiHeading; context: { emoji: '🚫' }"
-></ng-container>
+<img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
 <h1>Feedback Vote disabled</h1>
 }@else { @if(eventData) {
 <div role="definition">
@@ -35,9 +31,3 @@
   ></app-toast>
   <button (click)="dialog.close()">Close</button>
 </dialog>
-
-<ng-template #emojiHeading let-emoji="emoji" let-dimension="dimension">
-  <span [style.--font-size-emoji]="dimension || undefined" role="heading">{{
-    emoji
-  }}</span>
-</ng-template>

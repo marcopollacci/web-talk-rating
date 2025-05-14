@@ -69,3 +69,12 @@ dialog {
     padding: 0.6rem 1rem;
   }
 }
+
+[alt="No vote"],
+[alt="No event"] {
+  display: block;
+  margin: auto;
+  margin-block-start: 1.5rem;
+  width: auto;
+  height: 15rem;
+}
