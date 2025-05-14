@@ -1,1 +1,8 @@
-<p>home works!</p>
+<p>Here you can find the list of the last 5 events you can vote.</p>
+
+@if (listEvents.hasValue()) {
+<pre>
+    {{ listEvents.value() | json }}
+  </pre
+>
+}

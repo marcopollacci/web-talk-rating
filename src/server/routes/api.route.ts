@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   GetAllEventsRatingResponse,
+  GetEvents,
   queryEvents,
 } from '../../models/rating.model';
 import { QueryDBHelper } from '../helpers/querydb.helper';
@@ -67,7 +68,9 @@ router.get('/get-event/:eventId', async (req, res) => {
   let results;
 
   try {
-    const result = await connectionDBNeon.getEvent(req.params.eventId);
+    const result = await connectionDBNeon.getEvent<GetEvents>(
+      req.params.eventId
+    );
     [results] = result;
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
