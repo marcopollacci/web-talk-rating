@@ -1,12 +1,18 @@
 @use "common/styles/mixins.scss" as mixins;
 :host {
-  display: block;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  margin-block-end: 1rem;
 }
 
 footer {
   @include mixins.atma-font();
-  margin-block-start: 2rem;
-  padding: 1rem 1rem 0.25rem 1rem;
+  margin-block-start: auto;
+  padding: 1rem 0.8rem 0.25rem 1rem;
   background-color: #317483;
   color: #ffffff;
   font-size: 0.8rem;
