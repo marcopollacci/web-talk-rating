@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { ToastComponent } from '@common/components/toast/toast.component';
 import { ToastInterface } from '@common/models/toast.model';
@@ -9,7 +10,7 @@ import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
 @Component({
   selector: 'app-add-rating',
-  imports: [FormVoteComponent, ToastComponent],
+  imports: [FormVoteComponent, ToastComponent, NgTemplateOutlet],
   templateUrl: './add-rating.component.html',
   styleUrl: './add-rating.component.scss',
 })

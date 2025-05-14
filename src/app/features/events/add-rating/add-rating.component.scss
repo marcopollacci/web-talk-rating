@@ -1,5 +1,5 @@
 h1 {
-  margin-block: 0.35em 0.65em;
+  margin-block: 0.55em 0.85em;
   text-align: center;
 }
 h2 {
@@ -8,6 +8,12 @@ h2 {
 
 [role="heading"] {
   display: block;
-  font-size: 5rem;
+  font-size: var(--font-size-emoji, 5rem);
   text-align: center;
+}
+
+[role="contentinfo"] {
+  margin-block-start: 1.5rem;
+  border-block-start: 2px solid var(--text-color);
+  padding-block-start: 1rem;
 }

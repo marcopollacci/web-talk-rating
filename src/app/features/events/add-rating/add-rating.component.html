@@ -1,17 +1,30 @@
 @if(noEventFound() === true) {
+<ng-container
+  *ngTemplateOutlet="emojiHeading; context: { emoji: '(╥﹏╥)' }"
+></ng-container>
 <h1>No event found</h1>
 } @else if (!canVote()) {
+<ng-container
+  *ngTemplateOutlet="emojiHeading; context: { emoji: '🚫' }"
+></ng-container>
 <h1>Feedback Vote disabled</h1>
 }@else { @if(eventData) {
-<span role="heading">🚀</span>
-<h1>Feedback form</h1>
+<ng-container
+  style="--font-size-emoji: 2rem"
+  *ngTemplateOutlet="
+    emojiHeading;
+    context: { emoji: '(„• ֊ •„)੭', dimension: '4rem' }
+  "
+></ng-container>
+
+<h1>Talk feedback page</h1>
 <h3>
   Thank you for attended my talk at <b>{{ eventData.name_event }}</b>
 </h3>
 <h3>
   <b>" {{ eventData.talk }} "</b>
 </h3>
-<p>I love to hear your thoughts!</p>
+<p role="contentinfo">I love to hear your thoughts!</p>
 
 <app-form-vote
   [(resetForm)]="resetForm"
@@ -26,3 +39,9 @@
   [message]="stateSave()?.message"
   [type]="stateSave()?.type"
 ></app-toast>
+
+<ng-template #emojiHeading let-emoji="emoji" let-dimension="dimension">
+  <span [style.--font-size-emoji]="dimension || undefined" role="heading">{{
+    emoji
+  }}</span>
+</ng-template>
