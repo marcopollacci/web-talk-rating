@@ -12,7 +12,7 @@ h4 {
 }
 
 h3 {
-  color: #317483;
+  color: var(--atma-default-color);
   font-family: "Atma", system-ui;
   font-weight: 600;
   font-style: normal;
@@ -36,6 +36,9 @@ app-form-vote {
   padding: 0.5em;
   text-align: center;
   background-color: #f4f4f4;
+  @media (prefers-color-scheme: dark) {
+    background-color: #000000;
+  }
 }
 
 [role="heading"] {

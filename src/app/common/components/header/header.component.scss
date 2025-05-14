@@ -1,0 +1,23 @@
+@use "../../styles/mixins.scss" as mixins;
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-block-start: 1rem;
+  justify-items: flex-end;
+  background-color: #317483;
+}
+
+h1 {
+  @include mixins.atma-font();
+  color: #ffffff;
+  font-size: 2.4rem;
+  line-height: 2.5rem;
+  padding-inline-start: 3.3rem;
+}
+
+img {
+  padding-inline-end: 1rem;
+  width: auto;
+  height: 16em;
+}

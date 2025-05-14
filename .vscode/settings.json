@@ -25,6 +25,7 @@
     "server-side",
     "events",
     "rating",
-    "toast"
+    "toast",
+    "header"
   ]
 }

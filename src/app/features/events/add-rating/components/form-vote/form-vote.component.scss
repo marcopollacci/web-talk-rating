@@ -26,60 +26,9 @@ form {
     font-size: 1em;
     border: none;
     color: #ffffffff; /* white */
-    background-color: #636ae8ff; /* primary-500 */
+    background-color: #317483; /* primary-500 */
     &:disabled {
-      background-color: #636ae842;
+      background-color: #a3bfc6;
     }
   }
-
-  // input[type="range"] {
-  //   --dir: right;
-  //   --fill: gold;
-  //   --fillbg: var(--fill-stars);
-  //   --star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
-  //   --stars: 5;
-  //   --starsize: 4.5rem;
-  //   --symbol: var(--star);
-  //   --rating-value: 1;
-  //   --w: calc(var(--stars) * var(--starsize));
-  //   --x: calc(100% * (var(--rating-value) / var(--stars)));
-  //   block-size: var(--starsize);
-  //   inline-size: var(--w);
-  //   position: relative;
-  //   touch-action: manipulation;
-  //   background-color: var(--background-color);
-  //   -webkit-appearance: none;
-  //   appearance: none;
-  //   ::-moz-range-track {
-  //     background: linear-gradient(
-  //       to var(--dir),
-  //       var(--fill) 0 var(--x),
-  //       var(--fillbg) 0 var(--x)
-  //     );
-  //     block-size: 100%;
-  //     mask: repeat left center/var(--starsize) var(--symbol);
-  //   }
-
-  //   &::-webkit-slider-runnable-track {
-  //     background: linear-gradient(
-  //       to var(--dir),
-  //       var(--fill) 0 var(--x),
-  //       var(--fillbg) 0 var(--x)
-  //     );
-  //     block-size: 100%;
-  //     mask: repeat left center/var(--starsize) var(--symbol);
-  //     -webkit-mask: repeat left center/var(--starsize) var(--symbol);
-  //   }
-  //   &::-moz-range-thumb {
-  //     height: var(--starsize);
-  //     opacity: 0;
-  //     width: var(--starsize);
-  //   }
-  //   &::-webkit-slider-thumb {
-  //     height: var(--starsize);
-  //     opacity: 0;
-  //     width: var(--starsize);
-  //     -webkit-appearance: none;
-  //   }
-  // }
 }

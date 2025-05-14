@@ -1,0 +1,7 @@
+@mixin atma-font {
+  color: var(--atma-default-color);
+  font-family: "Atma", system-ui;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.5rem;
+}
