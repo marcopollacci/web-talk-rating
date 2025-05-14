@@ -3,14 +3,14 @@
 </p>
 
 @if (listEvents.hasValue()) { @for (item of listEvents.value(); track $index) {
-
-<section (click)="item.talk && navigate(item.id)">
+@let canRedirect = item.talk && item.vote_enabled;
+<section (click)="canRedirect && navigate(item.id)">
   <header>
     {{ item.name_event }} - {{ item.date_event_from | date : "dd/MM/yyyy" }}
   </header>
   <article>
     <p>
-      @if(item.talk && item.vote_enabled) {
+      @if(canRedirect) {
       <a routerLink="/events/add-rating/{{ item.id }}">{{ item.talk }}</a>
       } @else { Coming soon.. }
     </p>
