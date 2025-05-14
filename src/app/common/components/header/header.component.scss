@@ -11,7 +11,7 @@
 h1 {
   @include mixins.atma-font();
   color: #ffffff;
-  font-size: 2.4rem;
+  font-size: clamp(1rem, -3.125rem + 22vw, 2.375rem);
   line-height: 2.5rem;
   padding-inline-start: 3.3rem;
 }

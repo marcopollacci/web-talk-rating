@@ -15,7 +15,7 @@
 
   <span><b>Tap or swipe to rate</b></span>
   <span>
-    Actual rate: <b>{{ formRating.value.rating }}</b></span
+    Actual rate: <b>{{ formRating.value.rating || 0 }}</b></span
   >
 
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>

@@ -1,16 +1,24 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, effect, inject, input, signal } from '@angular/core';
-import { ToastComponent } from '@common/components/toast/toast.component';
+import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of, switchMap, tap, timer } from 'rxjs';
+import { catchError, filter, of, tap } from 'rxjs';
+import { ToastComponent } from '../../../common/components/toast/toast.component';
 import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
 import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
 @Component({
   selector: 'app-add-rating',
-  imports: [FormVoteComponent, ToastComponent, NgTemplateOutlet],
+  imports: [FormVoteComponent, NgTemplateOutlet, ToastComponent],
   templateUrl: './add-rating.component.html',
   styleUrl: './add-rating.component.scss',
 })
@@ -21,8 +29,8 @@ export class AddRatingComponent {
   noEventFound = signal<boolean | undefined>(undefined);
   eventData: GetSingleEventResponse | null = null;
   stateSave = signal<ToastInterface | null>(null);
-  hiddenToast = signal<boolean>(true);
   resetForm = false;
+  dialog = viewChild<ElementRef>('dialog');
 
   constructor() {
     effect(() => {
@@ -52,30 +60,28 @@ export class AddRatingComponent {
   }
 
   onSubmitForm(event: VoteFormInterface) {
-    this.hiddenToast.set(false);
+    const dialog = this.dialog()!.nativeElement as HTMLDialogElement;
     this.stateSave.set(null);
     this.#eventSrv
       .insertRating(this.eventId(), event)
       .pipe(
-        switchMap(() => {
-          this.stateSave.set({
-            type: 'success',
-            message: 'Vote saved',
-          });
-          this.resetForm = true;
-          return of(null);
-        }),
         catchError(() => {
           this.stateSave.set({
             type: 'error',
             message: 'Error saving your vote',
           });
+          dialog.showModal();
           return of(null);
         }),
-        switchMap(() => timer(3000))
+        filter((data) => !!data)
       )
       .subscribe(() => {
-        this.hiddenToast.set(true);
+        this.stateSave.set({
+          type: 'success',
+          message: 'Your feedback has been submitted.',
+        });
+        this.resetForm = true;
+        dialog.showModal();
       });
   }
 }

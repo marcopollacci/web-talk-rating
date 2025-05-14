@@ -1,17 +1,13 @@
+@use "../../styles/mixins.scss" as mixins;
+
 :host {
+  @include mixins.atma-font();
   display: flex;
   column-gap: 0.5em;
   padding: 0.5em;
   border-radius: 0.5em;
-  position: absolute;
   inset-block-start: calc(0% + 1rem);
-  font-size: 1.1rem;
-  width: calc(100% - 2rem);
-  opacity: 0;
-  transition: opacity 1s ease;
-  &[aria-hidden="false"] {
-    opacity: 1;
-  }
+  font-size: 2rem;
   &[toast-type="success"] {
     background-color: #17a948ff;
     color: #ffffff;
@@ -20,17 +16,17 @@
     background-color: #ff0000ff;
     color: #ffffff;
   }
+  text-align: center;
 }
 
 h2 {
   margin-block: 0em;
-}
-
-[role="img"] {
-  margin-block-start: 0.3rem;
-  font-size: 1.5rem;
+  @include mixins.atma-font();
+  font-size: 2rem;
+  color: #ffffff;
 }
 
 p {
   margin-block-start: 0.2em;
+  font-size: 1.5rem;
 }

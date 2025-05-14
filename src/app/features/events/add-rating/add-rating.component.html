@@ -28,11 +28,13 @@
 <h1>Loading...</h1>
 } }
 
-<app-toast
-  [visible]="hiddenToast()"
-  [message]="stateSave()?.message"
-  [type]="stateSave()?.type"
-></app-toast>
+<dialog #dialog>
+  <app-toast
+    [message]="stateSave()?.message"
+    [type]="stateSave()?.type"
+  ></app-toast>
+  <button (click)="dialog.close()">Close</button>
+</dialog>
 
 <ng-template #emojiHeading let-emoji="emoji" let-dimension="dimension">
   <span [style.--font-size-emoji]="dimension || undefined" role="heading">{{
