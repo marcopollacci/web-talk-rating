@@ -20,20 +20,21 @@ export class QueryDBHelper {
     return await this.#neonObj`SELECT version();`;
   }
 
-  async getAllEvents() {
-    return await this.#neonObj.query(
+  async getAllEvents<T>(): Promise<T> {
+    return (await this.#neonObj.query(
       `SELECT name_event,  random_value as id, talk, date_event_from, vote_enabled FROM ${
         this.#schemaPrefix
       }.events ORDER BY date_event_from DESC limit 5;`
-    );
+    )) as T;
   }
 
-  async getEvent<T>(eventId: string): Promise<T> {
-    return (await this.#neonObj.query(
+  async getEvent(eventId: string) {
+    return await this.#neonObj.query(
       `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk, url_image FROM ${
         this.#schemaPrefix
-      }.events WHERE random_value = $1`
-    )) as T;
+      }.events WHERE random_value = $1`,
+      [eventId]
+    );
   }
 
   async getAllEventsRating<T>(event: queryEvents): Promise<T> {

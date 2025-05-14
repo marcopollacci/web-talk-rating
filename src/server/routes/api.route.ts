@@ -51,7 +51,7 @@ router.get('/get-all-events', async (_req, res) => {
   let results;
 
   try {
-    const result = await connectionDBNeon.getAllEvents();
+    const result = await connectionDBNeon.getAllEvents<GetEvents>();
     results = result;
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
@@ -68,9 +68,7 @@ router.get('/get-event/:eventId', async (req, res) => {
   let results;
 
   try {
-    const result = await connectionDBNeon.getEvent<GetEvents>(
-      req.params.eventId
-    );
+    const result = await connectionDBNeon.getEvent(req.params.eventId);
     [results] = result;
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);

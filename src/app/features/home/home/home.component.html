@@ -1,8 +1,19 @@
-<p>Here you can find the list of the last 5 events you can vote.</p>
+<p role="contentinfo">
+  Here you can find the list of the last 5 events you can vote.
+</p>
 
-@if (listEvents.hasValue()) {
-<pre>
-    {{ listEvents.value() | json }}
-  </pre
->
-}
+@if (listEvents.hasValue()) { @for (item of listEvents.value(); track $index) {
+
+<section (click)="item.talk && navigate(item.id)">
+  <header>
+    {{ item.name_event }} - {{ item.date_event_from | date : "dd/MM/yyyy" }}
+  </header>
+  <article>
+    <p>
+      @if(item.talk) {
+      <a routerLink="/events/add-rating/{{ item.id }}">{{ item.talk }}</a>
+      } @else { Coming soon.. }
+    </p>
+  </article>
+</section>
+} }

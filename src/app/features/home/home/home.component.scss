@@ -1,8 +1,40 @@
+@use "../../../common/styles/mixins.scss" as mixins;
+
 :host {
   padding: 0.5rem 1rem;
   display: block;
 }
 
 p {
-  font-size: 1.2rem;
+  &[role="contentinfo"] {
+    @include mixins.atma-font();
+    font-size: 1.6rem;
+  }
+}
+
+section {
+  border: 1px solid;
+  border-radius: 1rem;
+  margin-block-end: 1rem;
+  cursor: pointer;
+  header {
+    color: #000000;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-block-end: 1px solid;
+    background-color: #f4f4f4;
+    border-radius: 1rem 1rem 0 0;
+  }
+  article {
+    padding-inline: 1rem;
+    @include mixins.atma-font();
+    p {
+      font-size: 2rem;
+      color: var(--text-color);
+      font-weight: 400;
+    }
+    a {
+      color: var(--atma-default-color);
+    }
+  }
 }
