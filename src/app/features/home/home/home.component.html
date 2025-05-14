@@ -10,7 +10,7 @@
   </header>
   <article>
     <p>
-      @if(item.talk) {
+      @if(item.talk && item.vote_enabled) {
       <a routerLink="/events/add-rating/{{ item.id }}">{{ item.talk }}</a>
       } @else { Coming soon.. }
     </p>
