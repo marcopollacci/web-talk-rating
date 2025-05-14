@@ -12,6 +12,8 @@
     <p>
       @if(canRedirect) {
       <a routerLink="/events/add-rating/{{ item.id }}">{{ item.talk }}</a>
+      } @else if (!item.vote_enabled && item.talk) {
+      {{ item.talk }}
       } @else { Coming soon.. }
     </p>
   </article>

@@ -1,4 +1,8 @@
-@let formValueRating = formRating.get('rating')!.value || 0;
+@if (!canVote()) {
+<img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
+<h1>Feedback Vote disabled</h1>
+} @else { @let formValueRating = formRating.get('rating')!.value || 0;
+<p role="contentinfo">Please leave your feedback below:</p>
 <app-image-rating
   (ratingSelected)="formRating.get('rating')!.setValue($event)"
   [formValueRating]="formValueRating"
@@ -21,3 +25,4 @@
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
 </form>
+}

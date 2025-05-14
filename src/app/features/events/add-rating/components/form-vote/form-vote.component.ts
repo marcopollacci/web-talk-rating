@@ -1,16 +1,18 @@
-import { Component, effect, inject, model, output } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, effect, inject, input, model, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VoteFormInterface } from '../../../models/vote.model';
 import { ImageRatingComponent } from '../image-rating/image-rating.component';
 
 @Component({
   selector: 'app-form-vote',
-  imports: [ReactiveFormsModule, ImageRatingComponent],
+  imports: [ReactiveFormsModule, ImageRatingComponent, NgOptimizedImage],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
 })
 export class FormVoteComponent {
   readonly #fb = inject(FormBuilder);
+  canVote = input.required<boolean>();
   emitForm = output<VoteFormInterface>();
   resetForm = model<boolean>(false);
 

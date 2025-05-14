@@ -1,9 +1,7 @@
 @if(noEventFound() === true) {
 <img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
 <h1>No event found</h1>
-} @else if (!canVote()) {
-<img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
-<h1>Feedback Vote disabled</h1>
+
 }@else { @if(eventData) {
 <div role="definition">
   <h4>Thank you for attended my talk at</h4>
@@ -14,9 +12,8 @@
     <b>"{{ eventData.talk }}"</b>
   </h3>
 </div>
-<p role="contentinfo">Please leave your feedback below:</p>
-
 <app-form-vote
+  [canVote]="canVote()"
   [(resetForm)]="resetForm"
   (emitForm)="onSubmitForm($event)"
 ></app-form-vote>

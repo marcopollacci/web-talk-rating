@@ -1,3 +1,8 @@
+[role="contentinfo"] {
+  margin-block-start: 1.5rem;
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -31,4 +36,16 @@ form {
       background-color: #a3bfc6;
     }
   }
+}
+
+h1 {
+  text-align: center;
+}
+
+[alt="No vote"] {
+  display: block;
+  margin: auto;
+  margin-block-start: 1.5rem;
+  width: auto;
+  height: 15rem;
 }

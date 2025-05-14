@@ -48,11 +48,6 @@ app-form-vote {
   text-align: center;
 }
 
-[role="contentinfo"] {
-  margin-block-start: 1.5rem;
-  text-align: center;
-}
-
 dialog {
   border: none;
   background-color: transparent;
@@ -70,7 +65,6 @@ dialog {
   }
 }
 
-[alt="No vote"],
 [alt="No event"] {
   display: block;
   margin: auto;
