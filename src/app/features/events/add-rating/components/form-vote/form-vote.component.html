@@ -1,15 +1,21 @@
+@let formValueRating = formRating.get('rating')!.value || 0;
+<app-image-rating
+  (ratingSelected)="formRating.get('rating')!.setValue($event)"
+  [formValueRating]="formValueRating"
+></app-image-rating>
 <form [formGroup]="formRating" (ngSubmit)="onSubmit()">
   <input
+    hidden
     formControlName="rating"
     max="5"
     [style.--rating-value]="formRating.get('rating')?.value || 0"
-    step="0.5"
+    step="1"
     type="range"
   />
 
-  <span
-    ><b>Slide or tap to rating.</b> Actual rate:
-    {{ formRating.value.rating }}</span
+  <span><b>Tap or swipe to rate</b></span>
+  <span>
+    Actual rate: <b>{{ formRating.value.rating }}</b></span
   >
 
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>

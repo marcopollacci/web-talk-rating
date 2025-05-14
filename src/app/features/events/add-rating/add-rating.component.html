@@ -17,14 +17,16 @@
   "
 ></ng-container>
 
-<h1>Talk feedback page</h1>
-<h3>
-  Thank you for attended my talk at <b>{{ eventData.name_event }}</b>
-</h3>
-<h3>
-  <b>" {{ eventData.talk }} "</b>
-</h3>
-<p role="contentinfo">I love to hear your thoughts!</p>
+<div role="definition">
+  <h4>Thank you for attended my talk at</h4>
+  <h4>
+    <b>{{ eventData.name_event }}</b>
+  </h4>
+  <h3>
+    <b>"{{ eventData.talk }}"</b>
+  </h3>
+</div>
+<p role="contentinfo">Please leave your feedback below:</p>
 
 <app-form-vote
   [(resetForm)]="resetForm"

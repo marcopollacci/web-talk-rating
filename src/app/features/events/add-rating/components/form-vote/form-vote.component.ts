@@ -1,10 +1,11 @@
 import { Component, effect, inject, model, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VoteFormInterface } from '../../../models/vote.model';
+import { ImageRatingComponent } from '../image-rating/image-rating.component';
 
 @Component({
   selector: 'app-form-vote',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ImageRatingComponent],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
 })
