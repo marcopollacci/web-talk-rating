@@ -35,10 +35,6 @@ export class AddRatingComponent {
   constructor() {
     effect(() => {
       this.searchEvent(this.eventId());
-      console.log(
-        '🚀 ~ AddRatingComponent ~ effect ~ this.eventId():',
-        this.eventId()
-      );
     });
   }
 
