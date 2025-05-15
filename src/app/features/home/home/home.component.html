@@ -4,7 +4,10 @@
 
 @if (listEvents.hasValue()) { @for (item of listEvents.value(); track $index) {
 @let canRedirect = item.talk && item.vote_enabled;
-<section (click)="canRedirect && navigate(item.id)">
+<section
+  [style.cursor]="canRedirect && 'pointer'"
+  (click)="canRedirect && navigate(item.id)"
+>
   <header>
     {{ item.name_event }} - {{ item.date_event_from | date : "dd/MM/yyyy" }}
   </header>
@@ -16,6 +19,7 @@
       {{ item.talk }}
       } @else { Coming soon.. }
     </p>
+    <p>🌍 {{ item.place }}</p>
   </article>
 </section>
 } }

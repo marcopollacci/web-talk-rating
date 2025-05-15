@@ -8,15 +8,6 @@
   [formValueRating]="formValueRating"
 ></app-image-rating>
 <form [formGroup]="formRating" (ngSubmit)="onSubmit()">
-  <input
-    hidden
-    formControlName="rating"
-    max="5"
-    [style.--rating-value]="formRating.get('rating')?.value || 0"
-    step="1"
-    type="range"
-  />
-
   <span><b>Tap to rate</b></span>
   <span>
     Current rating: <b>{{ formRating.value.rating || 0 }}</b></span

@@ -22,7 +22,7 @@ export class QueryDBHelper {
 
   async getAllEvents<T>(): Promise<T> {
     return (await this.#neonObj.query(
-      `SELECT name_event,  random_value as id, talk, date_event_from, vote_enabled FROM ${
+      `SELECT name_event, random_value as id, talk, date_event_from, vote_enabled, place FROM ${
         this.#schemaPrefix
       }.events ORDER BY date_event_from DESC limit 5;`
     )) as T;

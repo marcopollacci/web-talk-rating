@@ -19,14 +19,15 @@ export interface GetSingleEventResponse {
   url_image: string;
 }
 
-export type GetEvents = GetEventResponse[];
-
 export interface GetEventResponse {
   name_event: string;
   id: string;
   talk?: string;
   date_event_from: string;
   vote_enabled: boolean;
+  place: string;
 }
+
+export type GetEvents = GetEventResponse[];
 
 export type queryEvents = string | undefined;

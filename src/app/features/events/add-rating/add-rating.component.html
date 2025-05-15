@@ -2,14 +2,14 @@
 <img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
 <h1>No event found</h1>
 
-}@else { @if(eventData) {
+}@else { @let event = eventData(); @if(event) {
 <div role="definition">
   <h4>Thank you for attended my talk at</h4>
   <h4>
-    <b>{{ eventData.name_event }}</b>
+    <b>{{ event.name_event }}</b>
   </h4>
   <h3>
-    <b>"{{ eventData.talk }}"</b>
+    <b>"{{ event.talk }}"</b>
   </h3>
 </div>
 <app-form-vote

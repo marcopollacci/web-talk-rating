@@ -27,7 +27,7 @@ export class AddRatingComponent {
   eventId = input.required<string>();
   canVote = signal<boolean>(false);
   noEventFound = signal<boolean | undefined>(undefined);
-  eventData: GetSingleEventResponse | null = null;
+  eventData = signal<GetSingleEventResponse | null>(null);
   stateSave = signal<ToastInterface | null>(null);
   resetForm = false;
   dialog = viewChild<ElementRef>('dialog');
@@ -35,6 +35,10 @@ export class AddRatingComponent {
   constructor() {
     effect(() => {
       this.searchEvent(this.eventId());
+      console.log(
+        '🚀 ~ AddRatingComponent ~ effect ~ this.eventId():',
+        this.eventId()
+      );
     });
   }
 
@@ -54,7 +58,7 @@ export class AddRatingComponent {
         filter((data) => !!data)
       )
       .subscribe((data) => {
-        this.eventData = data;
+        this.eventData.set(data);
         this.canVote.set(data.vote_enabled);
       });
   }
