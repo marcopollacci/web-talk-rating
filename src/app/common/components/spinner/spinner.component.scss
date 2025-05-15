@@ -1,0 +1,34 @@
+:host {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+}
+
+span {
+  display: block;
+
+  &:before,
+  &:after {
+    content: "";
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+    width: 20rem;
+    height: 20rem;
+    margin: auto;
+  }
+  &:after {
+    box-shadow: 0 4px 0 #4eb6ce inset;
+    animation: rotate 1.5s linear infinite;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
