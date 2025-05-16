@@ -1,10 +1,24 @@
+import { isPlatformServer } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { PORT_RUNNING } from '@common/env/ssr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseService {
   readonly httpClient = inject(HttpClient);
-  readonly basePath = '/api';
+  #apiBaseUrl: string;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    const isServer = isPlatformServer(platformId);
+
+    this.#apiBaseUrl = isServer
+      ? `http://localhost:${PORT_RUNNING}/api` // chiamate interne dal SSR
+      : '/api'; // chiamate dal browser (proxy da NGINX)
+  }
+
+  get basePath() {
+    return this.#apiBaseUrl;
+  }
 }

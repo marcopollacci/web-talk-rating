@@ -39,6 +39,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/common/env/ssr.ts",
+                  "with": "src/app/common/env/ssr.production.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
