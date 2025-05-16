@@ -3,6 +3,11 @@
   text-align: center;
 }
 
+p {
+  font-size: 2rem;
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -36,10 +41,6 @@ form {
       background-color: #a3bfc6;
     }
   }
-}
-
-h1 {
-  text-align: center;
 }
 
 [alt="No vote"] {

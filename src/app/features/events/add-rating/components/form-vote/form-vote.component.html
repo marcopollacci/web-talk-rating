@@ -1,6 +1,6 @@
 @if (!canVote()) {
 <img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
-<h1>Feedback Vote disabled</h1>
+<p>Feedback Vote disabled</p>
 } @else { @let formValueRating = formRating.get('rating')!.value || 0;
 <p role="contentinfo" aria-label="Feedback form">
   Please leave your feedback below:

@@ -1,6 +1,6 @@
 @if(noEventFound() === true) {
 <img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
-<h1>No event found</h1>
+<p>No event found</p>
 } @else { @let event = eventData(); @if(event) {
 <div role="definition" aria-label="Event details">
   <h4>Thank you for attended my talk at</h4>
@@ -17,7 +17,7 @@
   (emitForm)="onSubmitForm($event)"
 ></app-form-vote>
 } @else {
-<h1>Loading...</h1>
+<p>Loading...</p>
 } }
 
 <dialog #dialog>
