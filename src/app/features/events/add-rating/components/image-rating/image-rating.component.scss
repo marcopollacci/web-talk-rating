@@ -1,6 +1,7 @@
 svg {
   overflow: unset;
   rect {
+    cursor: pointer;
     outline: none;
     &:focus-visible {
       outline: rgb(0, 95, 204) solid 2px;
