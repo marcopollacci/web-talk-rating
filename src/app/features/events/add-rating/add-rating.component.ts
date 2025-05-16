@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of, tap } from 'rxjs';
+import { catchError, filter, of } from 'rxjs';
 import { ToastComponent } from '../../../common/components/toast/toast.component';
 import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
@@ -43,17 +43,14 @@ export class AddRatingComponent {
       .getEventForRating(eventId)
       .pipe(
         catchError(() => {
-          this.noEventFound.set(true);
           return of(null);
-        }),
-        tap((data) => {
-          if (!data) {
-            this.noEventFound.set(true);
-          }
-        }),
-        filter((data) => !!data)
+        })
       )
       .subscribe((data) => {
+        if (!data) {
+          this.noEventFound.set(true);
+          return;
+        }
         this.eventData.set(data);
         this.canVote.set(data.vote_enabled);
       });
