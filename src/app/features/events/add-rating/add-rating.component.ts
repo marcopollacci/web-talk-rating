@@ -26,7 +26,7 @@ export class AddRatingComponent {
   #eventSrv = inject(EventService);
   eventId = input.required<string>();
   canVote = signal<boolean>(false);
-  noEventFound = signal<boolean | undefined>(undefined);
+  noEventFound = signal<boolean>(false);
   eventData = signal<GetSingleEventResponse | null>(null);
   stateSave = signal<ToastInterface | null>(null);
   resetForm = false;
@@ -39,6 +39,7 @@ export class AddRatingComponent {
   }
 
   searchEvent(eventId: string) {
+    this.noEventFound.set(false);
     this.#eventSrv
       .getEventForRating(eventId)
       .pipe(
