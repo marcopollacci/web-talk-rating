@@ -1,0 +1,10 @@
+svg {
+  overflow: unset;
+  rect {
+    outline: none;
+    &:focus-visible {
+      outline: rgb(0, 95, 204) solid 2px;
+      outline-style: revert;
+    }
+  }
+}
