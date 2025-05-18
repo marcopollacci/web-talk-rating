@@ -85,7 +85,7 @@ router.post('/insert-rating/:eventId', async (req, res) => {
   let status = 200;
   let message = 'OK';
   try {
-    // await connectionDBNeon.insertRating(req.params.eventId, req.body);
+    await connectionDBNeon.insertRating(req.params.eventId, req.body);
   } catch (error) {
     console.log('🚀 ~ router.use ~ error:', error);
     status = 500;
