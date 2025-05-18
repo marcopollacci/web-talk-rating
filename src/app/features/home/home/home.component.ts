@@ -14,8 +14,14 @@ export class HomeComponent {
   #homeService = inject(HomeService);
   #router = inject(Router);
   listEvents = rxResource({ loader: () => this.#homeService.getEvents() });
+  readonly today = new Date();
 
   navigate(id: string) {
     this.#router.navigate([`/events/add-rating/${id}`]);
+  }
+
+  getLabelVote(date: string) {
+    const dateEvent = new Date(date);
+    return dateEvent > this.today ? 'opens soon' : 'Closed';
   }
 }
