@@ -14,8 +14,8 @@ export class BaseService {
     const isServer = isPlatformServer(platformId);
 
     this.#apiBaseUrl = isServer
-      ? `http://localhost:${PORT_RUNNING}/api` // chiamate interne dal SSR
-      : '/api'; // chiamate dal browser (proxy da NGINX)
+      ? `http://localhost:${PORT_RUNNING}/api` // server call
+      : '/api'; // from end client (browser)
   }
 
   get basePath() {
