@@ -2,8 +2,10 @@ import express from 'express';
 import {
   GetAllEventsRatingResponse,
   GetEvents,
+  GetSingleEventResponse,
   queryEvents,
 } from '../../models/rating.model';
+import { executeApiCall } from '../helpers/api.helper';
 import { QueryDBHelper } from '../helpers/querydb.helper';
 import { sendTelegramMessage } from '../helpers/telegram.helper';
 
@@ -14,83 +16,58 @@ const MESSAGE_KO = { message: 'KO' } as const;
 router.use(express.json());
 
 router.get('/up-neon', async (_req, res) => {
-  let status = 200;
-  let message = 'OK';
-  try {
-    await connectionDBNeon.getVersion();
-  } catch (error) {
-    console.log('🚀 ~ router.use ~ error:', error);
-    status = 500;
-    message = MESSAGE_KO.message;
-  }
-
+  const { status, message } = await executeApiCall<string>(
+    connectionDBNeon.getVersion.bind(connectionDBNeon)
+  );
   res.status(status);
-  res.json({
-    message,
-  });
+  res.json(!!message ? 'OK' : 'KO');
 });
 
 router.get('/get-all-events-rating', async (req, res) => {
-  let status = 200;
-  let results;
-
-  try {
-    results = await connectionDBNeon.getAllEventsRating<
-      GetAllEventsRatingResponse[]
-    >(req.query['event'] as queryEvents);
-  } catch (error) {
-    console.log('🚀 ~ router.use ~ error:', error);
-    status = 500;
-    results = MESSAGE_KO;
-  }
+  const { status, message } = await executeApiCall<
+    GetAllEventsRatingResponse[]
+  >(
+    connectionDBNeon.getAllEventsRating.bind(
+      connectionDBNeon,
+      req.query['event'] as queryEvents
+    )
+  );
   res.status(status);
-  res.json(results);
+  res.json(message);
 });
 
 router.get('/get-all-events', async (_req, res) => {
-  let status = 200;
-  let results;
-
-  try {
-    const result = await connectionDBNeon.getAllEvents<GetEvents>();
-    results = result;
-  } catch (error) {
-    console.log('🚀 ~ router.use ~ error:', error);
-    status = 500;
-    results = MESSAGE_KO;
-  }
-
+  const { status, message } = await executeApiCall<GetEvents>(
+    connectionDBNeon.getAllEvents.bind(connectionDBNeon)
+  );
   res.status(status);
-  res.json(results);
+  res.json(message);
 });
 
 router.get('/get-event/:eventId', async (req, res) => {
-  let status = 200;
-  let results;
-
-  try {
-    const result = await connectionDBNeon.getEvent(req.params.eventId);
-    [results] = result;
-  } catch (error) {
-    console.log('🚀 ~ router.use ~ error:', error);
-    status = 500;
-    results = MESSAGE_KO;
-  }
+  const { status, message } = await executeApiCall<GetSingleEventResponse>(
+    connectionDBNeon.getEvent.bind(connectionDBNeon, req.params.eventId)
+  );
 
   res.status(status);
-  res.json(results);
+
+  if (Array.isArray(message) && message.length > 0) {
+    res.json(message[0]);
+    return;
+  }
+
+  res.json(message);
 });
 
 router.post('/insert-rating/:eventId', async (req, res) => {
-  let status = 200;
-  let message = 'OK';
-  try {
-    await connectionDBNeon.insertRating(req.params.eventId, req.body);
-  } catch (error) {
-    console.log('🚀 ~ router.use ~ error:', error);
-    status = 500;
-    message = MESSAGE_KO.message;
-  }
+  const { status, message } = await executeApiCall<void>(
+    connectionDBNeon.insertRating.bind(
+      connectionDBNeon,
+      req.params.eventId,
+      req.body
+    )
+  );
+  console.log('🚀 ~ router.post ~ message:', message);
 
   if (process.env['TELEGRAM_BOT_API']) {
     try {
@@ -99,6 +76,9 @@ router.post('/insert-rating/:eventId', async (req, res) => {
         req.params.eventId
       );
       if (event) {
+        if (status === 500) {
+          event['name_event'] = `ERRORE 500 - ${event['name_event']}`;
+        }
         sendTelegramMessage(event['name_event'], event['talk'], req.body);
       }
     } catch (error) {
