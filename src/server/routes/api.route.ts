@@ -11,7 +11,6 @@ import { sendTelegramMessage } from '../helpers/telegram.helper';
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
-const MESSAGE_KO = { message: 'KO' } as const;
 
 router.use(express.json());
 
@@ -20,7 +19,7 @@ router.get('/up-neon', async (_req, res) => {
     connectionDBNeon.getVersion.bind(connectionDBNeon)
   );
   res.status(status);
-  res.json(!!message ? 'OK' : 'KO');
+  res.json({ messge: !!message ? 'OK' : 'KO' });
 });
 
 router.get('/get-all-events-rating', async (req, res) => {
@@ -32,6 +31,7 @@ router.get('/get-all-events-rating', async (req, res) => {
       req.query['event'] as queryEvents
     )
   );
+
   res.status(status);
   res.json(message);
 });
@@ -67,7 +67,6 @@ router.post('/insert-rating/:eventId', async (req, res) => {
       req.body
     )
   );
-  console.log('🚀 ~ router.post ~ message:', message);
 
   if (process.env['TELEGRAM_BOT_API']) {
     try {
