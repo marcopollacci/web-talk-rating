@@ -30,6 +30,15 @@ form {
     }
   }
 
+  label {
+    font-size: 1.5em;
+    margin-block-end: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    cursor: pointer;
+  }
+
   button {
     border-radius: 1em;
     padding: 1em 0.5em;

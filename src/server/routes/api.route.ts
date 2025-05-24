@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import {
   GetAllEventsRatingResponse,
   GetEvents,
@@ -7,7 +8,10 @@ import {
 } from '../../models/rating.model';
 import { executeApiCall } from '../helpers/api.helper';
 import { QueryDBHelper } from '../helpers/querydb.helper';
-import { sendTelegramMessage } from '../helpers/telegram.helper';
+import {
+  sendTelegramMessage,
+  sendTelegramPhoto,
+} from '../helpers/telegram.helper';
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
@@ -101,6 +105,23 @@ router.post('/insert-rating/:eventId', async (req, res) => {
   res.status(status);
   res.json({
     message,
+  });
+});
+
+// Configura multer (salvataggio in memoria, puoi anche salvare su disco)
+const upload = multer({ storage: multer.memoryStorage() });
+
+router.post('/insert-photo', upload.single('file'), async (req, res) => {
+  if (process.env['TELEGRAM_BOT_API']) {
+    try {
+      //sending on Telegram chat if enabled
+      sendTelegramPhoto(req.file!);
+    } catch (error) {
+      console.error('🚀 ~ router.use ~ error:', error);
+    }
+  }
+  res.json({
+    message: 'OK',
   });
 });
 

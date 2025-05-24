@@ -14,8 +14,26 @@
   <span>
     Current rating: <b>{{ formRating.value.rating || 0 }}</b></span
   >
-
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
+
+  <label
+    (keypress)="imageInput.click()"
+    for="image"
+    role="button"
+    aria-label="Upload image"
+    tabindex="0"
+    >Did you take a picture of my talk? Click here to send!
+    <input
+      #imageInput
+      id="image"
+      type="file"
+      aria-hidden="true"
+      accept="image/*"
+      (change)="onFileChange($event)"
+  /></label>
+
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
 </form>
 }
+
+{{ formRating.value | json }}

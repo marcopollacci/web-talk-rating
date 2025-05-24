@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '@common/services/base.service';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
@@ -18,5 +19,16 @@ export class EventService extends BaseService {
       `${this.basePath}/insert-rating/${eventId}`,
       formData
     );
+  }
+
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const headers = new HttpHeaders({ enctype: 'multipart/form-data' });
+
+    return this.httpClient.post(`${this.basePath}/insert-photo`, formData, {
+      headers: headers,
+    });
   }
 }
