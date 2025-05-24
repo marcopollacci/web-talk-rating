@@ -60,6 +60,24 @@ router.get('/get-event/:eventId', async (req, res) => {
 });
 
 router.post('/insert-rating/:eventId', async (req, res) => {
+  const [event = null] = await connectionDBNeon.getEvent(req.params.eventId);
+
+  if (!event) {
+    res.status(404);
+    res.json({
+      message: 'Event not found',
+    });
+    return;
+  }
+
+  if (!event['vote_enabled']) {
+    res.status(400);
+    res.json({
+      message: 'Vote not enabled',
+    });
+    return;
+  }
+
   const { status, message } = await executeApiCall<void>(
     connectionDBNeon.insertRating.bind(
       connectionDBNeon,
@@ -71,15 +89,10 @@ router.post('/insert-rating/:eventId', async (req, res) => {
   if (process.env['TELEGRAM_BOT_API']) {
     try {
       //sending on Telegram chat if enabled
-      const [event = null] = await connectionDBNeon.getEvent(
-        req.params.eventId
-      );
-      if (event) {
-        if (status === 500) {
-          event['name_event'] = `ERRORE 500 - ${event['name_event']}`;
-        }
-        sendTelegramMessage(event['name_event'], event['talk'], req.body);
+      if (status === 500) {
+        event['name_event'] = `ERRORE 500 - ${event['name_event']}`;
       }
+      sendTelegramMessage(event['name_event'], event['talk'], req.body);
     } catch (error) {
       console.error('🚀 ~ router.use ~ error:', error);
     }
