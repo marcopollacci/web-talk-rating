@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of } from 'rxjs';
+import { catchError, filter, of, switchMap } from 'rxjs';
 import { ToastComponent } from '../../../common/components/toast/toast.component';
 import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
@@ -64,6 +64,12 @@ export class AddRatingComponent {
     this.#eventSrv
       .insertRating(this.eventId(), event)
       .pipe(
+        switchMap(() => {
+          if (event.image) {
+            return this.#eventSrv.uploadFile(event.image);
+          }
+          return of('done');
+        }),
         catchError(() => {
           this.stateSave.set({
             type: 'error',

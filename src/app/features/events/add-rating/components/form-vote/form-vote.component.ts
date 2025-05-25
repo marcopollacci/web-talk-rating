@@ -19,6 +19,7 @@ export class FormVoteComponent {
   formRating = this.#fb.group({
     rating: [0, [Validators.required, Validators.min(0.5), Validators.max(5)]],
     comment: [''],
+    image: [null as File | null],
   });
 
   constructor() {
@@ -32,5 +33,15 @@ export class FormVoteComponent {
 
   onSubmit() {
     this.emitForm.emit(this.formRating.value as VoteFormInterface);
+  }
+
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const [file] = target.files;
+      this.formRating.patchValue({
+        image: file,
+      });
+    }
   }
 }
