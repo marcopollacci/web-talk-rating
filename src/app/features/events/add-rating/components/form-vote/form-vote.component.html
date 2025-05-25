@@ -36,9 +36,9 @@
         />
       </svg>
     </button>
-    @if (formRating.get('image')?.value) {
+    @let image = formRating.get('image')!.value; @if (image) {
     <span>
-      {{ (formRating.get("image")?.value)!.name }}
+      {{ image.name }}
     </span>
     }
   </div>
