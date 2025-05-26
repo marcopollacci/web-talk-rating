@@ -45,7 +45,7 @@ export class AddRatingComponent {
       .getEventForRating(eventId)
       .pipe(
         catchError((error: unknown) => {
-          console.log('🚀 ~ AddRatingComponent ~ catchError ~ error:', error);
+          console.error('🚀 ~ AddRatingComponent ~ catchError ~ error:', error);
           return of(null);
         })
       )

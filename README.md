@@ -1,59 +1,40 @@
-# WebRating
+# Web Rating
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+Web Rating is a web application that allows users to rate and leave feedback on specific events. The main goal of the project is to provide a simple yet effective system for collecting ratings and comments that can be useful for improving the quality of future events.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Event Rating**: Users can express their appreciation for an event through a rating system.
+- **Comments**: In addition to rating, users can leave textual comments to provide more detailed feedback.
+- **Telegram Integration**: If enabled, the application can send photos and messages to a Telegram bot for easy sharing and viewing.
 
-```bash
-ng serve
-```
+## Frontend Routes
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The Angular application uses the following main routes:
 
-## Code scaffolding
+- `/`: The homepage that displays recent events and allows users to navigate to the rating pages.
+- `/events/add-rating/:eventId`: A page where users can add a rating and a comment for the specified event.
+- `/**`: All other routes are redirected to the homepage.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Backend API
 
-```bash
-ng generate component component-name
-```
+The following APIs are available to interact with the backend:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- `GET /api/get-all-events`: Returns all the events available for rating.
+- `GET /api/get-event/:eventId`: Retrieves the details of a single event.
+- `POST /api/insert-rating/:eventId`: Submits a new rating for an event.
+- `POST /api/insert-photo`: Uploads a photo related to an event to Telegram (if enabled).
 
-```bash
-ng generate --help
-```
+## Database
 
-## Building
+(WIP - Section under development)
 
-To build the project run:
+_**Note**: This section will be completed once the database dump is final._
 
-```bash
-ng build
-```
+## How to Contribute
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Interested in contributing to the project? Great! You can start by forking the repository and submitting your pull requests. For more details on how to contribute, please refer to the CONTRIBUTING.md file (to be created).
 
-## Running unit tests
+## License
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is released under the [Insert license type here] license. For more information, please refer to the LICENSE.md file (to be created).
