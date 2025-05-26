@@ -1,7 +1,7 @@
 import { isPlatformServer } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ENABLE_TELEGRAM_API, PORT_RUNNING } from '@common/env/ssr';
+import { ENABLE_UPLOAD_PHOTO, PORT_RUNNING } from '@common/env/ssr';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +23,6 @@ export class BaseService {
   }
 
   get isTelegramBotEnabled() {
-    return ENABLE_TELEGRAM_API;
+    return ENABLE_UPLOAD_PHOTO;
   }
 }
