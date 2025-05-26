@@ -13,6 +13,7 @@
 </div>
 <app-form-vote
   [canVote]="canVote()"
+  [isTelegramEnabled]="isTelegramEnabled"
   [(resetForm)]="resetForm"
   (emitForm)="onSubmitForm($event)"
 ></app-form-vote>

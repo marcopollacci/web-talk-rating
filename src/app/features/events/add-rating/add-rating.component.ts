@@ -30,6 +30,7 @@ export class AddRatingComponent {
   eventData = signal<GetSingleEventResponse | null>(null);
   stateSave = signal<ToastInterface | null>(null);
   resetForm = false;
+  isTelegramEnabled = this.#eventSrv.isTelegramBotEnabled;
   dialog = viewChild<ElementRef>('dialog');
 
   constructor() {

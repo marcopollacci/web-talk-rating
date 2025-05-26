@@ -13,6 +13,7 @@ import { ImageRatingComponent } from '../image-rating/image-rating.component';
 export class FormVoteComponent {
   readonly #fb = inject(FormBuilder);
   canVote = input.required<boolean>();
+  isTelegramEnabled = input.required<boolean>();
   emitForm = output<VoteFormInterface>();
   resetForm = model<boolean>(false);
 

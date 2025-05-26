@@ -15,7 +15,7 @@
     Current rating: <b>{{ formRating.value.rating || 0 }}</b></span
   >
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
-
+  @if(isTelegramEnabled()) {
   <label for="image" aria-label="Upload image"
     >Did you snap a photo of my talk? Feel free to send it here!
     <input
@@ -42,7 +42,7 @@
     </span>
     }
   </div>
-
+  }
   <button [disabled]="formRating.invalid" type="submit">Submit</button>
 </form>
 }
