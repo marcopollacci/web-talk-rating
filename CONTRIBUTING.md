@@ -42,7 +42,7 @@ Before you start contributing, please make sure you have read and understood the
 ## Development Environment
 
 - Make sure you have Node.js (21 or higher) and npm installed on your machine.
-- Run `npm install` to install all dependencies.
+- Run `pnpm install` to install all dependencies.
 - Use `ng serve` to start the development server.
 
 ## Code Review
