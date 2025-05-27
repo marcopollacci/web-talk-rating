@@ -1,3 +1,4 @@
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormVoteComponent } from './form-vote.component';
@@ -8,12 +9,14 @@ describe('FormVoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormVoteComponent]
-    })
-    .compileComponents();
+      imports: [FormVoteComponent],
+      providers: [provideExperimentalZonelessChangeDetection()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FormVoteComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('canVote', true);
+    fixture.componentRef.setInput('isTelegramEnabled', false);
     fixture.detectChanges();
   });
 

@@ -1,3 +1,4 @@
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageRatingComponent } from './image-rating.component';
@@ -8,12 +9,13 @@ describe('ImageRatingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ImageRatingComponent]
-    })
-    .compileComponents();
+      imports: [ImageRatingComponent],
+      providers: [provideExperimentalZonelessChangeDetection()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ImageRatingComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('formValueRating', 5);
     fixture.detectChanges();
   });
 
