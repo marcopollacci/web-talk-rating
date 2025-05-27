@@ -1,5 +1,9 @@
 # Web Rating
 
+<p align="center">
+<img src="https://github.com/user-attachments/assets/e0aafbef-e9ee-4a8c-8bc3-b7ad568a4d05" alt="myself" height="200">
+</p>
+
 Web Rating is a web application that allows users to rate and leave feedback on specific events. The main goal of the project is to provide a simple yet effective system for collecting ratings and comments that can be useful for improving the quality of future events.
 
 ## Features
