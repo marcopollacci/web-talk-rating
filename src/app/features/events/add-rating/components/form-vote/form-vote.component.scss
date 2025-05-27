@@ -47,6 +47,10 @@ form {
     border: none;
     color: #ffffffff;
     background-color: #317483;
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
     &[type="submit"] {
       font-size: 1em;
     }
@@ -80,6 +84,16 @@ form {
     & span {
       margin-block-start: 0;
       padding: 0;
+    }
+  }
+
+  [role="complementary"] {
+    display: flex;
+    align-items: center;
+    column-gap: 0.3rem;
+    button {
+      background-color: transparent;
+      min-width: 3rem;
     }
   }
 }

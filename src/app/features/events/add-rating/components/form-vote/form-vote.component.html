@@ -16,18 +16,23 @@
   >
   <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
   @if(isTelegramEnabled()) {
-  <label for="image" aria-label="Upload image"
+  <label
     >Did you snap a photo of my talk? Feel free to send it here!
     <input
       #imageInput
       id="image"
       type="file"
       aria-hidden="true"
+      [disabled]="formRating.value.image"
       accept="image/*"
       (change)="onFileChange($event)"
   /></label>
   <div role="group">
-    <button type="button" (click)="imageInput.click()">
+    <button
+      [disabled]="formRating.value.image"
+      type="button"
+      (click)="imageInput.click()"
+    >
       Upload
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <polygon
@@ -37,9 +42,18 @@
       </svg>
     </button>
     @let image = formRating.get('image')!.value; @if (image) {
-    <span>
-      {{ image.name }}
-    </span>
+    <div role="complementary">
+      <span>
+        {{ image.name }}
+      </span>
+      <button
+        aria-label="Remove image"
+        (click)="formRating.get('image')!.setValue(null)"
+        type="button"
+      >
+        ❌
+      </button>
+    </div>
     }
   </div>
   }
