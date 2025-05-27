@@ -33,4 +33,4 @@ _**Note**: This section will be completed once the database dump is final._
 
 ## How to Contribute
 
-Interested in contributing to the project? Great! You can start by forking the repository and submitting your pull requests. For more details on how to contribute, please refer to the CONTRIBUTING.md file (to be created).
+Interested in contributing to the project? Great! You can start by forking the repository and submitting your pull requests. For more details on how to contribute, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file (to be created).
