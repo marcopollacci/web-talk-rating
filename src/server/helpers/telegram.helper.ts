@@ -1,12 +1,12 @@
 import { VoteFormInterface } from '@features/events/models/vote.model';
 
+const { TELEGRAM_BOT_API = '', TELEGRAM_CHAT_ID = '' } = process.env;
+
 export const sendTelegramMessage = async (
   nameEvent: string,
   talk: string,
   formData: VoteFormInterface
 ) => {
-  const { TELEGRAM_BOT_API, TELEGRAM_CHAT_ID } = process.env;
-
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_API}/sendMessage`;
 
   fetch(url, {
@@ -23,7 +23,6 @@ export const sendTelegramMessage = async (
 };
 
 export const sendTelegramPhoto = async (photo: Express.Multer.File) => {
-  const { TELEGRAM_BOT_API, TELEGRAM_CHAT_ID } = process.env;
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_API}/sendPhoto`;
 
   const photoBuffer = photo.buffer;
