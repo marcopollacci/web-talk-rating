@@ -35,6 +35,10 @@ The following APIs are available to interact with the backend:
 
 _**Note**: This section will be completed once the database dump is final._
 
+## Design Concept Credits
+
+This design was conceived by [Marco Tesselli](https://dribbble.com/marcotesselli).
+
 ## How to Contribute
 
 Interested in contributing to the project? Great! You can start by forking the repository and submitting your pull requests. For more details on how to contribute, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
