@@ -108,7 +108,6 @@ router.post('/insert-rating/:eventId', async (req, res) => {
   });
 });
 
-// Configura multer (salvataggio in memoria, puoi anche salvare su disco)
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/insert-photo', upload.single('file'), async (req, res) => {
