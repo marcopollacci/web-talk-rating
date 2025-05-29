@@ -1,5 +1,5 @@
 import { HttpInterceptorFn, provideHttpClient } from '@angular/common/http';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { httpRequestInterceptor } from './http-request.interceptor';
@@ -10,10 +10,7 @@ describe('httpRequestInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideExperimentalZonelessChangeDetection(),
-        provideHttpClient(),
-      ],
+      providers: [provideZonelessChangeDetection(), provideHttpClient()],
     });
   });
 

@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { EventService } from './event.service';
@@ -9,10 +9,7 @@ describe('EventService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideExperimentalZonelessChangeDetection(),
-        provideHttpClient(),
-      ],
+      providers: [provideZonelessChangeDetection(), provideHttpClient()],
     });
     service = TestBed.inject(EventService);
   });
