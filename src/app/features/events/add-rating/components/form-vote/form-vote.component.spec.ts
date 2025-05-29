@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormVoteComponent } from './form-vote.component';
@@ -10,7 +10,7 @@ describe('FormVoteComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormVoteComponent],
-      providers: [provideExperimentalZonelessChangeDetection()],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormVoteComponent);
