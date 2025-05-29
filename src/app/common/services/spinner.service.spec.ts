@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { SpinnerService } from './spinner.service';
@@ -6,7 +8,9 @@ describe('SpinnerService', () => {
   let service: SpinnerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), provideHttpClient()],
+    });
     service = TestBed.inject(SpinnerService);
   });
 

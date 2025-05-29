@@ -13,7 +13,7 @@ import { HomeService } from '../services/home.service';
 export class HomeComponent {
   #homeService = inject(HomeService);
   #router = inject(Router);
-  listEvents = rxResource({ loader: () => this.#homeService.getEvents() });
+  listEvents = rxResource({ stream: () => this.#homeService.getEvents() });
   readonly today = new Date();
 
   navigate(id: string) {
