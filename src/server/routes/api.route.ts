@@ -2,11 +2,13 @@ import express from 'express';
 import multer from 'multer';
 import {
   GetAllEventsRatingResponse,
+  GetAllEventsRatingResponseCached,
   GetEvents,
   GetSingleEventResponse,
   queryEvents,
 } from '../../models/rating.model';
 import { executeApiCall } from '../helpers/api.helper';
+import { isTTLExpired } from '../helpers/cache.helper';
 import { QueryDBHelper } from '../helpers/querydb.helper';
 import {
   sendTelegramMessage,
@@ -15,6 +17,7 @@ import {
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
+const cacheMemoryMap = new Map<string, GetAllEventsRatingResponseCached>();
 
 router.use(express.json());
 
@@ -35,20 +38,42 @@ router.get('/get-all-events-rating', async (req, res) => {
       req.query['event'] as queryEvents
     )
   );
-
   res.status(status);
   res.json(message);
 });
 
 router.get('/get-all-events', async (_req, res) => {
+  const getKeyCached = cacheMemoryMap.get('get-all-events');
+
+  if (getKeyCached && isTTLExpired(getKeyCached.ttl)) {
+    res.status(200);
+    res.json(getKeyCached.value);
+    return;
+  }
   const { status, message } = await executeApiCall<GetEvents>(
     connectionDBNeon.getAllEvents.bind(connectionDBNeon)
   );
+
+  if (status === 200) {
+    cacheMemoryMap.set('get-all-events', {
+      value: message,
+      ttl: new Date().getTime() + 1000 * 60 * 60 * 24, // 1 day
+    });
+  }
+
   res.status(status);
   res.json(message);
 });
 
 router.get('/get-event/:eventId', async (req, res) => {
+  const getKeyCached = cacheMemoryMap.get(`get-event-${req.params.eventId}`);
+
+  if (getKeyCached && isTTLExpired(getKeyCached.ttl)) {
+    res.status(200);
+    res.json(getKeyCached.value);
+    return;
+  }
+
   const { status, message } = await executeApiCall<GetSingleEventResponse>(
     connectionDBNeon.getEvent.bind(connectionDBNeon, req.params.eventId)
   );
@@ -57,6 +82,14 @@ router.get('/get-event/:eventId', async (req, res) => {
 
   if (Array.isArray(message) && message.length > 0) {
     res.json(message[0]);
+
+    if (status === 200) {
+      cacheMemoryMap.set(`get-event-${req.params.eventId}`, {
+        value: message[0],
+        ttl: new Date().getTime() + 1000 * 60 * 60 * 24, // 1 day
+      });
+    }
+
     return;
   }
 

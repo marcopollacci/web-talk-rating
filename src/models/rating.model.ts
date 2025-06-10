@@ -31,3 +31,8 @@ export interface GetEventResponse {
 export type GetEvents = GetEventResponse[];
 
 export type queryEvents = string | undefined;
+
+export interface GetAllEventsRatingResponseCached {
+  value: unknown;
+  ttl: number;
+}
