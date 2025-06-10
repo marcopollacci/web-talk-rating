@@ -57,7 +57,7 @@ router.get('/get-all-events', async (_req, res) => {
   if (status === 200) {
     cacheMemoryMap.set('get-all-events', {
       value: message,
-      ttl: new Date().getTime() + 1000 * 60 * 60 * 24, // 1 day
+      ttl: Date.now() + 1000 * 60 * 60 * 24, // 1 day
     });
   }
 
@@ -86,7 +86,7 @@ router.get('/get-event/:eventId', async (req, res) => {
     if (status === 200) {
       cacheMemoryMap.set(`get-event-${req.params.eventId}`, {
         value: message[0],
-        ttl: new Date().getTime() + 1000 * 60 * 60 * 24, // 1 day
+        ttl: Date.now() + 1000 * 60 * 60 * 24, // 1 day
       });
     }
 
