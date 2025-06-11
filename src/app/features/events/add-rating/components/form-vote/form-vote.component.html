@@ -2,9 +2,7 @@
 <img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
 <p>Feedback Vote disabled</p>
 } @else { @let formValueRating = formRating.get('rating')!.value || 0;
-<p role="contentinfo" aria-label="Feedback form">
-  Please leave your feedback below:
-</p>
+<p>Please leave your feedback below:</p>
 <app-image-rating
   (ratingSelected)="formRating.get('rating')!.setValue($event)"
   [formValueRating]="formValueRating"

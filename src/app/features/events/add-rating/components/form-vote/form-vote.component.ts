@@ -9,6 +9,10 @@ import { ImageRatingComponent } from '../image-rating/image-rating.component';
   imports: [ReactiveFormsModule, ImageRatingComponent, NgOptimizedImage],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
+  host: {
+    role: 'region',
+    'aria-label': 'Feedback form',
+  },
 })
 export class FormVoteComponent {
   readonly #fb = inject(FormBuilder);

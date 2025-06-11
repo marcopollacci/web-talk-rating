@@ -2,15 +2,15 @@
 <img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
 <p>No event found</p>
 } @else { @let event = eventData(); @if(event) {
-<div role="definition" aria-label="Event details">
-  <h4>Thank you for attended my talk at</h4>
-  <h4>
+<section aria-label="Event details">
+  <h3>Thank you for attended my talk at</h3>
+  <h3>
     <b>{{ event.name_event }}</b>
-  </h4>
+  </h3>
   <p>
     <b>"{{ event.talk }}"</b>
   </p>
-</div>
+</section>
 <app-form-vote
   [canVote]="canVote()"
   [isTelegramEnabled]="isTelegramEnabled"

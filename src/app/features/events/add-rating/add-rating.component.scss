@@ -4,21 +4,10 @@ h2 {
   margin-block-start: 0.35em;
 }
 
-h3,
-h4 {
-  text-align: center;
-}
-[role="definition"] p {
-  color: var(--atma-default-color);
-  font-family: "Atma", system-ui;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 1.5rem;
-}
-
-h4 {
+h3 {
   margin-block-end: 0.6em;
-  + h4 {
+  text-align: center;
+  + h3 {
     margin-block-start: 0;
     padding-block-start: 0;
   }
@@ -29,19 +18,20 @@ app-form-vote {
   padding: 0.8em;
 }
 
-[role="definition"] {
+section {
   padding: 0.5em;
   text-align: center;
   background-color: #f4f4f4;
   @media (prefers-color-scheme: dark) {
     background-color: #000000;
   }
-}
-
-[role="heading"] {
-  display: block;
-  font-size: var(--font-size-emoji, 5rem);
-  text-align: center;
+  p {
+    color: var(--atma-default-color);
+    font-family: "Atma", system-ui;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.5rem;
+  }
 }
 
 dialog {
