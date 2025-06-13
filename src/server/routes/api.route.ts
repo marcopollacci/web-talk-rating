@@ -157,4 +157,11 @@ router.post('/insert-photo', upload.single('file'), async (req, res) => {
   });
 });
 
+router.post('/clean-cache', async (_req, res) => {
+  cacheMemoryMap.clear();
+  res.json({
+    message: 'OK',
+  });
+});
+
 export { router as apiRouter };
