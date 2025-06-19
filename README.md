@@ -31,9 +31,7 @@ The following APIs are available to interact with the backend:
 
 ## Database
 
-(WIP - Section under development)
-
-_**Note**: This section will be completed once the database dump is final._
+The schema file is located at `data/rating.sql`.
 
 ## Design Concept Credits
 
