@@ -47,7 +47,8 @@ CREATE TABLE rating.events (
     vote_enabled boolean DEFAULT false,
     talk text,
     url_image text,
-    place text
+    place text,
+    is_live boolean DEFAULT true
 );
 
 
