@@ -2,12 +2,12 @@
 
 :host {
   display: flex;
-  padding-block-start: 1rem;
   justify-items: flex-end;
   background-color: #317483;
   column-gap: 1rem;
   justify-content: space-between;
   padding: 1em;
+  padding-block-end: 0;
 }
 
 h1 {
