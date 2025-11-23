@@ -7,12 +7,28 @@
   (ratingSelected)="formRating.get('rating')!.setValue($event)"
   [formValueRating]="formValueRating"
 ></app-image-rating>
+@let actualRate = formRating.value.rating || 0;
 <form [formGroup]="formRating" (ngSubmit)="onSubmit()">
   <span><b>Tap to rate</b></span>
   <span>
-    Current rating: <b>{{ formRating.value.rating || 0 }}</b></span
+    Current rating: <b>{{ actualRate }}</b></span
   >
-  <textarea placeholder="Leave a comment" formControlName="comment"></textarea>
+  @if(actualRate >= 1 && actualRate < 4) {
+  <div data-rating-comment>
+    <p>
+      Looks like this talk wasn't exactly your cup of tea: <b>totally fair!</b>
+    </p>
+    <p>
+      If you'd like, feel free to drop a quick note on how I could improve it
+      for next time.
+    </p>
+  </div>
+  }
+  <textarea
+    aria-label="Leave a comment"
+    placeholder="Leave a comment"
+    formControlName="comment"
+  ></textarea>
   @if(isTelegramEnabled()) {
   <label
     >Did you snap a photo of my talk? Feel free to send it here!
@@ -49,7 +65,7 @@
         (click)="formRating.get('image')!.setValue(null)"
         type="button"
       >
-        ❌
+        <span aria-hidden="true">❌</span>
       </button>
     </div>
     }

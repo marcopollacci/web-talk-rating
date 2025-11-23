@@ -1,4 +1,5 @@
 <svg
+  #svgElement
   role="radiogroup"
   aria-label="Rating my Talk"
   aria-required="true"
@@ -9,12 +10,13 @@
 >
   <rect
     (click)="ratingSelected.emit(1)"
-    (keypress)="ratingSelected.emit(1)"
+    (keydown)="onKeyDown($event, 1)"
     [style.filter]="filterValue(1)"
     [ariaChecked]="formValueRating() === 1"
     aria-label="1 star"
     role="radio"
-    tabindex="0"
+    [attr.tabindex]="getTabindex([0, 1])"
+    data-rating="1"
     y="1"
     width="56"
     height="70"
@@ -28,12 +30,13 @@
 
   <rect
     (click)="ratingSelected.emit(2)"
-    (keypress)="ratingSelected.emit(2)"
+    (keydown)="onKeyDown($event, 2)"
     [style.filter]="filterValue(2)"
     [ariaChecked]="formValueRating() === 2"
     aria-label="2 stars"
     role="radio"
-    tabindex="0"
+    [attr.tabindex]="getTabindex(2)"
+    data-rating="2"
     x="80"
     y="1"
     width="56"
@@ -47,12 +50,13 @@
   />
   <rect
     (click)="ratingSelected.emit(3)"
-    (keypress)="ratingSelected.emit(3)"
+    (keydown)="onKeyDown($event, 3)"
     [style.filter]="filterValue(3)"
     [ariaChecked]="formValueRating() === 3"
     aria-label="3 stars"
     role="radio"
-    tabindex="0"
+    [attr.tabindex]="getTabindex(3)"
+    data-rating="3"
     x="160"
     y="1"
     width="56"
@@ -66,12 +70,13 @@
   />
   <rect
     (click)="ratingSelected.emit(4)"
-    (keypress)="ratingSelected.emit(4)"
+    (keydown)="onKeyDown($event, 4)"
     [style.filter]="filterValue(4)"
     [ariaChecked]="formValueRating() === 4"
     aria-label="4 stars"
-    tabindex="0"
+    [attr.tabindex]="getTabindex(4)"
     role="radio"
+    data-rating="4"
     x="240"
     width="56"
     height="70"
@@ -85,12 +90,13 @@
 
   <rect
     (click)="ratingSelected.emit(5)"
-    (keypress)="ratingSelected.emit(5)"
+    (keydown)="onKeyDown($event, 5)"
     [style.filter]="filterValue(5)"
     [ariaChecked]="formValueRating() === 5"
-    tabindex="0"
+    [attr.tabindex]="getTabindex(5)"
     aria-label="5 stars"
     role="radio"
+    data-rating="5"
     x="320"
     width="56"
     height="70"
