@@ -17,7 +17,15 @@ footer {
   color: #ffffff;
   font-size: 0.8rem;
   text-align: end;
+  display: flex;
+  justify-content: space-between;
   a {
     color: #ffffff;
+  }
+  [data-sponsor] {
+    text-decoration: none;
+  }
+  span:not([aria-hidden="true"]) {
+    text-decoration: underline;
   }
 }

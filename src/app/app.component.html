@@ -1,12 +1,22 @@
 <app-header></app-header>
 <main><router-outlet /></main>
 <footer>
-  Designed with ❤️ by
-  <a href="https://dribbble.com/marcotesselli" target="_blank"
-    >Marco Tesselli</a
+  <div>
+    Designed with ❤️ by
+    <a href="https://dribbble.com/marcotesselli" target="_blank"
+      >Marco Tesselli</a
+    >
+  </div>
+  <a
+    href="https://github.com/sponsors/marcopollacci"
+    target="_blank"
+    rel="noopener noreferrer"
+    data-sponsor
   >
+    <span>Support me</span><span aria-hidden="true"> ❤️</span>
+  </a>
 </footer>
 
 @if (canShowSpinner$()) {
-<app-spinner></app-spinner>
+  <app-spinner></app-spinner>
 }
