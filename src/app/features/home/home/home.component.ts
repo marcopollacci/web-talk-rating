@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { DateRangePipe } from '../../../common/pipes/date-range.pipe';
+import { DateRangePipe } from '@common/pipes/date-range.pipe';
 import { HomeService } from '../services/home.service';
 
 @Component({
