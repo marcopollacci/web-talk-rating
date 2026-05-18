@@ -24,6 +24,7 @@ export interface GetEventResponse {
   id: string;
   talk?: string;
   date_event_from: string;
+  date_event_to: string;
   vote_enabled: boolean;
   place: string;
 }

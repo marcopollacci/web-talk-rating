@@ -22,9 +22,9 @@ export class QueryDBHelper {
 
   async getAllEvents<T>(): Promise<T> {
     return (await this.#neonObj.query(
-      `SELECT name_event, random_value as id, talk, date_event_from, vote_enabled, place FROM ${
+      `SELECT name_event, random_value as id, talk, date_event_from, date_event_to, vote_enabled, place FROM ${
         this.#schemaPrefix
-      }.events where is_live = true ORDER BY date_event_from DESC limit 5;`
+      }.events where is_live = true ORDER BY date_event_from DESC limit 5;`,
     )) as T;
   }
 
@@ -33,14 +33,14 @@ export class QueryDBHelper {
       `SELECT name_event, description, date_event_from, date_event_to, vote_enabled, talk, url_image FROM ${
         this.#schemaPrefix
       }.events WHERE random_value = $1`,
-      [eventId]
+      [eventId],
     );
   }
 
   async getAllEventsRating<T>(event: queryEvents): Promise<T> {
     if (event) return this.getSingleEventRating<T>(event);
     return (await this.#neonObj.query(
-      `SELECT * from ${this.#schemaPrefix}.events_rating_avg;`
+      `SELECT * from ${this.#schemaPrefix}.events_rating_avg;`,
     )) as T;
   }
 
@@ -49,7 +49,7 @@ export class QueryDBHelper {
       `SELECT * FROM ${
         this.#schemaPrefix
       }.events_rating_avg WHERE id_event = $1;`,
-      [event]
+      [event],
     )) as T;
   }
 
@@ -57,14 +57,14 @@ export class QueryDBHelper {
     //get real ID
     const [realEventId] = await this.#neonObj.query(
       `SELECT id FROM ${this.#schemaPrefix}.events WHERE random_value = $1;`,
-      [eventId]
+      [eventId],
     );
 
     return await this.#neonObj.query(
       `INSERT INTO ${
         this.#schemaPrefix
       }.rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
-      [realEventId['id'], formData.rating, formData.comment]
+      [realEventId['id'], formData.rating, formData.comment],
     );
   }
 }

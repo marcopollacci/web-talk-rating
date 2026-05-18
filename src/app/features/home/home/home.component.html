@@ -9,7 +9,7 @@
   (click)="canRedirect && navigate(item.id)"
 >
   <header>
-    {{ item.name_event }} - {{ item.date_event_from | date : "dd/MM/yyyy" }}
+    {{ item.name_event }} - {{ item.date_event_from | dateRange : item.date_event_to }}
   </header>
   <article>
     <p>

@@ -1,12 +1,12 @@
-import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
+import { DateRangePipe } from '../../../common/pipes/date-range.pipe';
 import { HomeService } from '../services/home.service';
 
 @Component({
   selector: 'app-home',
-  imports: [DatePipe, RouterLink],
+  imports: [DateRangePipe, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
