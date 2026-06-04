@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { AddRatingComponent } from './add-rating.component';
 
 describe('AddRatingComponent', () => {
@@ -11,7 +11,7 @@ describe('AddRatingComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AddRatingComponent],
-      providers: [provideZonelessChangeDetection(), provideHttpClient()],
+      providers: [provideZonelessChangeDetection(), provideHttpClient(withXhr())],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddRatingComponent);

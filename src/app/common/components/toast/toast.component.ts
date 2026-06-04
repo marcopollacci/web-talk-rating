@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { ToastType } from '@common/models/toast.model';
 
 @Component({
@@ -6,6 +6,7 @@ import { ToastType } from '@common/models/toast.model';
   imports: [],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[attr.toast-type]': 'type()',
   },

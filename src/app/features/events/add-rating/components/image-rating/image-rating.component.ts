@@ -1,9 +1,10 @@
-import { Component, ElementRef, input, output, viewChild } from '@angular/core';
+import { Component, ElementRef, input, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-image-rating',
   imports: [],
   templateUrl: './image-rating.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './image-rating.component.scss',
 })
 export class ImageRatingComponent {

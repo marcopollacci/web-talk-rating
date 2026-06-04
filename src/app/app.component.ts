@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SpinnerService } from '@common/services/spinner.service';
 import { HeaderComponent } from './common/components/header/header.component';
@@ -8,6 +8,7 @@ import { SpinnerComponent } from './common/components/spinner/spinner.component'
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, SpinnerComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
 export class AppComponent {

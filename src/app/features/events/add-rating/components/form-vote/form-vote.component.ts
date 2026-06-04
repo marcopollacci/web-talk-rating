@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, effect, inject, input, model, output } from '@angular/core';
+import { Component, effect, inject, input, model, output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VoteFormInterface } from '../../../models/vote.model';
 import { ImageRatingComponent } from '../image-rating/image-rating.component';
@@ -9,6 +9,7 @@ import { ImageRatingComponent } from '../image-rating/image-rating.component';
   imports: [ReactiveFormsModule, ImageRatingComponent, NgOptimizedImage],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     role: 'region',
     'aria-label': 'Feedback form',

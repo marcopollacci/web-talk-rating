@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
@@ -9,7 +9,7 @@ describe('HomeService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection(), provideHttpClient()],
+      providers: [provideZonelessChangeDetection(), provideHttpClient(withXhr())],
     });
     service = TestBed.inject(HomeService);
   });

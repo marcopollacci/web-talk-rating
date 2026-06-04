@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -11,7 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
-      providers: [provideZonelessChangeDetection(), provideHttpClient()],
+      providers: [provideZonelessChangeDetection(), provideHttpClient(withXhr())],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
