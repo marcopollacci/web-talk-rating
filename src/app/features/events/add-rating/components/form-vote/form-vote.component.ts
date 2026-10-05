@@ -1,12 +1,16 @@
-import { NgOptimizedImage } from '@angular/common';
-import { Component, effect, inject, input, model, output, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
+import { form, FormField, FormRoot, max, min, required, validate } from '@angular/forms/signals';
+import { ToastInterface } from '@common/models/toast.model';
+import { firstValueFrom, of, switchMap } from 'rxjs';
 import { VoteFormInterface } from '../../../models/vote.model';
+import { EventService } from '../../../services/event.service';
 import { ImageRatingComponent } from '../image-rating/image-rating.component';
+
+const RANGE_MESSAGE = 'Rating must be a whole number from 1 to 5.';
 
 @Component({
   selector: 'app-form-vote',
-  imports: [ReactiveFormsModule, ImageRatingComponent, NgOptimizedImage],
+  imports: [FormField, FormRoot, ImageRatingComponent],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -16,38 +20,79 @@ import { ImageRatingComponent } from '../image-rating/image-rating.component';
   },
 })
 export class FormVoteComponent {
-  readonly #fb = inject(FormBuilder);
-  canVote = input.required<boolean>();
+  readonly #eventSrv = inject(EventService);
+  eventId = input.required<string>();
   isTelegramEnabled = input.required<boolean>();
-  emitForm = output<VoteFormInterface>();
-  resetForm = model<boolean>(false);
+  saved = output<ToastInterface>();
 
-  formRating = this.#fb.group({
-    rating: [0, [Validators.required, Validators.min(0.5), Validators.max(5)]],
-    comment: [''],
-    image: [null as File | null],
-  });
+  // `image` lives outside the form model: WebMCP schema inference can't handle null values
+  // and an AI agent can't provide a File anyway.
+  readonly image = signal<File | null>(null);
+  readonly #ratingModel = signal({ rating: 0, comment: '' });
 
-  constructor() {
-    effect(() => {
-      if (this.resetForm()) {
-        this.formRating.reset();
-        this.resetForm.set(false);
-      }
+  readonly formRating = form(
+    this.#ratingModel,
+    (path) => {
+      required(path.rating, { message: RANGE_MESSAGE });
+      min(path.rating, 1, { message: RANGE_MESSAGE });
+      max(path.rating, 5, { message: RANGE_MESSAGE });
+      validate(path.rating, ({ value }) =>
+        Number.isInteger(value()) ? null : { kind: 'integer', message: RANGE_MESSAGE }
+      );
+    },
+    {
+      experimentalWebMcpTool: {
+        name: 'submitTalkRating',
+        description:
+          'Submits anonymous feedback for the talk shown on this page. ' +
+          '`rating` is a whole number from 1 (poor) to 5 (excellent). ' +
+          '`comment` is optional free-text feedback for the speaker (use an empty string if none). ' +
+          'Call `getTalkDetails` first to confirm with the user which talk they are rating.',
+      },
+      submission: {
+        action: (field) => this.#save(field().value()),
+      },
+    }
+  );
+
+  async #save({ rating, comment }: { rating: number; comment: string }) {
+    const vote: VoteFormInterface = {
+      rating,
+      // an agent may omit optional fields
+      comment: comment ?? '',
+      image: this.image(),
+    };
+
+    try {
+      await firstValueFrom(
+        this.#eventSrv
+          .insertRating(this.eventId(), vote)
+          .pipe(
+            switchMap(() =>
+              vote.image ? this.#eventSrv.uploadFile(vote.image) : of('done')
+            )
+          )
+      );
+    } catch {
+      this.saved.emit({ type: 'error', message: 'Error saving your vote' });
+      return { kind: 'server', message: 'Error saving your vote' };
+    }
+
+    this.#ratingModel.set({ rating: 0, comment: '' });
+    this.image.set(null);
+    this.formRating().reset();
+    this.saved.emit({
+      type: 'success',
+      message: 'Your feedback has been submitted.',
     });
-  }
-
-  onSubmit() {
-    this.emitForm.emit(this.formRating.value as VoteFormInterface);
+    return undefined;
   }
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
       const [file] = target.files;
-      this.formRating.patchValue({
-        image: file,
-      });
+      this.image.set(file);
     }
   }
 }

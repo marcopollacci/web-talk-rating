@@ -11,12 +11,19 @@
     <b>"{{ event.talk }}"</b>
   </p>
 </section>
+@if (canVote()) {
+<!-- rendered only while voting is open: it also registers the `submitTalkRating` WebMCP tool -->
 <app-form-vote
-  [canVote]="canVote()"
+  [eventId]="eventId()"
   [isTelegramEnabled]="isTelegramEnabled"
-  [(resetForm)]="resetForm"
-  (emitForm)="onSubmitForm($event)"
+  (saved)="onSaved($event)"
 ></app-form-vote>
+} @else {
+<div data-vote-disabled role="region" aria-label="Feedback form">
+  <img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
+  <p>Feedback Vote disabled</p>
+</div>
+}
 } @else {
 <p>Loading...</p>
 } }

@@ -18,7 +18,6 @@
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.editor.tabSizing": "shrink",
   "conventionalCommits.scopes": [
     "project",
@@ -29,5 +28,6 @@
     "header",
     "home",
     "upload-file-telegram"
-  ]
+  ],
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

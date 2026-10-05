@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import {
   Component,
+  declareExperimentalWebMcpTool,
   effect,
   ElementRef,
   inject,
@@ -11,9 +12,8 @@ import {
 } from '@angular/core';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
-import { catchError, filter, of, switchMap } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { ToastComponent } from '../../../common/components/toast/toast.component';
-import { VoteFormInterface } from '../models/vote.model';
 import { EventService } from '../services/event.service';
 import { FormVoteComponent } from './components/form-vote/form-vote.component';
 
@@ -31,13 +31,23 @@ export class AddRatingComponent {
   noEventFound = signal<boolean>(false);
   eventData = signal<GetSingleEventResponse | null>(null);
   stateSave = signal<ToastInterface | null>(null);
-  resetForm = false;
   isTelegramEnabled = this.#eventSrv.isTelegramBotEnabled;
   dialog = viewChild<ElementRef>('dialog');
 
   constructor() {
     effect(() => {
       this.searchEvent(this.eventId());
+    });
+
+    declareExperimentalWebMcpTool({
+      name: 'getTalkDetails',
+      description:
+        'Returns the event and talk being rated on this page, and whether voting is currently open.',
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: () => ({
+        content: [{ type: 'text', text: this.#getTalkDetails() }],
+      }),
     });
   }
 
@@ -61,35 +71,25 @@ export class AddRatingComponent {
       });
   }
 
-  onSubmitForm(event: VoteFormInterface) {
-    const dialog = this.dialog()!.nativeElement as HTMLDialogElement;
-    this.stateSave.set(null);
-    this.#eventSrv
-      .insertRating(this.eventId(), event)
-      .pipe(
-        switchMap(() => {
-          if (event.image) {
-            return this.#eventSrv.uploadFile(event.image);
-          }
-          return of('done');
-        }),
-        catchError(() => {
-          this.stateSave.set({
-            type: 'error',
-            message: 'Error saving your vote',
-          });
-          dialog.showModal();
-          return of(null);
-        }),
-        filter((data) => !!data)
-      )
-      .subscribe(() => {
-        this.stateSave.set({
-          type: 'success',
-          message: 'Your feedback has been submitted.',
-        });
-        this.resetForm = true;
-        dialog.showModal();
+  onSaved(state: ToastInterface) {
+    this.stateSave.set(state);
+    (this.dialog()!.nativeElement as HTMLDialogElement).showModal();
+  }
+
+  #getTalkDetails(): string {
+    const event = this.eventData();
+    if (event) {
+      return JSON.stringify({
+        event: event.name_event,
+        talk: event.talk,
+        description: event.description,
+        from: event.date_event_from,
+        to: event.date_event_to,
+        votingOpen: event.vote_enabled,
       });
+    }
+    return this.noEventFound()
+      ? 'No event found for this page.'
+      : 'Event details are still loading, retry shortly.';
   }
 }

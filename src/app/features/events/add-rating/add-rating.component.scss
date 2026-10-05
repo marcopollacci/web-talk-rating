@@ -14,7 +14,8 @@ h2 {
   }
 }
 
-app-form-vote {
+app-form-vote,
+[data-vote-disabled] {
   display: block;
   padding: 0.8em;
 }

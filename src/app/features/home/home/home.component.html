@@ -5,7 +5,7 @@
 @if (listEvents.hasValue()) { @for (item of listEvents.value(); track $index) {
 @let canRedirect = item.talk && item.vote_enabled;
 <section
-  [style.cursor]="canRedirect && 'pointer'"
+  [style.cursor]="canRedirect ? 'pointer' : null"
   (click)="canRedirect && navigate(item.id)"
 >
   <header>

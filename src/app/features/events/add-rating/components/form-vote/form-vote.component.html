@@ -1,14 +1,10 @@
-@if (!canVote()) {
-<img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
-<p>Feedback Vote disabled</p>
-} @else { @let formValueRating = formRating.get('rating')!.value || 0;
+@let actualRate = formRating.rating().value() || 0;
 <p>Please leave your feedback below:</p>
 <app-image-rating
-  (ratingSelected)="formRating.get('rating')!.setValue($event)"
-  [formValueRating]="formValueRating"
+  (ratingSelected)="formRating.rating().value.set($event)"
+  [formValueRating]="actualRate"
 ></app-image-rating>
-@let actualRate = formRating.value.rating || 0;
-<form [formGroup]="formRating" (ngSubmit)="onSubmit()">
+<form [formRoot]="formRating">
   <span><b>Tap to rate</b></span>
   <span>
     Current rating: <b>{{ actualRate }}</b></span
@@ -27,7 +23,7 @@
   <textarea
     aria-label="Leave a comment"
     placeholder="Leave a comment"
-    formControlName="comment"
+    [formField]="formRating.comment"
   ></textarea>
   @if(isTelegramEnabled()) {
   <label
@@ -37,13 +33,13 @@
       id="image"
       type="file"
       aria-hidden="true"
-      [disabled]="formRating.value.image"
+      [disabled]="!!image()"
       accept="image/*"
       (change)="onFileChange($event)"
   /></label>
   <div role="group">
     <button
-      [disabled]="formRating.value.image"
+      [disabled]="!!image()"
       type="button"
       (click)="imageInput.click()"
     >
@@ -55,14 +51,14 @@
         />
       </svg>
     </button>
-    @let image = formRating.get('image')!.value; @if (image) {
+    @let selectedImage = image(); @if (selectedImage) {
     <div role="complementary">
       <span>
-        {{ image.name }}
+        {{ selectedImage.name }}
       </span>
       <button
         aria-label="Remove image"
-        (click)="formRating.get('image')!.setValue(null)"
+        (click)="image.set(null)"
         type="button"
       >
         <span aria-hidden="true">❌</span>
@@ -71,6 +67,8 @@
     }
   </div>
   }
-  <button [disabled]="formRating.invalid" type="submit">Submit</button>
+  <button
+    [disabled]="formRating().invalid() || formRating().submitting()"
+    type="submit"
+  >Submit</button>
 </form>
-}
