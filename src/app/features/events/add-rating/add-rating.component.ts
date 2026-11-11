@@ -8,7 +8,6 @@ import {
   input,
   signal,
   viewChild,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import { ToastInterface } from '@common/models/toast.model';
 import { GetSingleEventResponse } from '@serverModels/rating.model';
@@ -21,7 +20,6 @@ import { FormVoteComponent } from './components/form-vote/form-vote.component';
   selector: 'app-add-rating',
   imports: [FormVoteComponent, NgOptimizedImage, ToastComponent],
   templateUrl: './add-rating.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-rating.component.scss',
 })
 export class AddRatingComponent {
@@ -59,7 +57,7 @@ export class AddRatingComponent {
         catchError((error: unknown) => {
           console.error('🚀 ~ AddRatingComponent ~ catchError ~ error:', error);
           return of(null);
-        })
+        }),
       )
       .subscribe((data) => {
         if (!data) {

@@ -1,8 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideExperimentalWebMcpForms } from '@angular/forms/signals';
@@ -16,6 +13,11 @@ interface RegisteredTool {
   execute: (args: unknown) => Promise<{ content: { text: string }[] }>;
 }
 
+// loose shape so the test can install a minimal WebMCP mock
+interface MockableDocument {
+  modelContext?: unknown;
+}
+
 describe('FormVoteComponent', () => {
   let component: FormVoteComponent;
   let fixture: ComponentFixture<FormVoteComponent>;
@@ -26,7 +28,7 @@ describe('FormVoteComponent', () => {
   beforeEach(async () => {
     const tools: RegisteredTool[] = (registeredTools = []);
     // minimal WebMCP mock: honours the AbortSignal Angular uses to unregister tools
-    (document as any).modelContext = {
+    (document as unknown as MockableDocument).modelContext = {
       registerTool: (tool: RegisteredTool, { signal }: { signal: AbortSignal }) => {
         if (signal.aborted) return;
         tools.push(tool);
@@ -55,7 +57,7 @@ describe('FormVoteComponent', () => {
   });
 
   afterEach(() => {
-    delete (document as any).modelContext;
+    delete (document as unknown as MockableDocument).modelContext;
     httpTesting.verify();
   });
 

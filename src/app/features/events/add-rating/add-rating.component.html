@@ -1,37 +1,37 @@
-@if(noEventFound() === true) {
-<img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
-<p>No event found</p>
-} @else { @let event = eventData(); @if(event) {
-<section aria-label="Event details">
-  <h2>Thank you for attended my talk at</h2>
-  <h2>
-    <b>{{ event.name_event }}</b>
-  </h2>
-  <p>
-    <b>"{{ event.talk }}"</b>
-  </p>
-</section>
-@if (canVote()) {
-<!-- rendered only while voting is open: it also registers the `submitTalkRating` WebMCP tool -->
-<app-form-vote
-  [eventId]="eventId()"
-  [isTelegramEnabled]="isTelegramEnabled"
-  (saved)="onSaved($event)"
-></app-form-vote>
+@if (noEventFound() === true) {
+  <img ngSrc="/me-upset.svg" alt="No event" width="56" height="90" priority />
+  <p>No event found</p>
 } @else {
-<div data-vote-disabled role="region" aria-label="Feedback form">
-  <img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
-  <p>Feedback Vote disabled</p>
-</div>
+  @let event = eventData();
+  @if (event) {
+    <section aria-label="Event details">
+      <h2>Thank you for attended my talk at</h2>
+      <h2>
+        <b>{{ event.name_event }}</b>
+      </h2>
+      <p>
+        <b>"{{ event.talk }}"</b>
+      </p>
+    </section>
+    @if (canVote()) {
+      <!-- rendered only while voting is open: it also registers the `submitTalkRating` WebMCP tool -->
+      <app-form-vote
+        [eventId]="eventId()"
+        [isTelegramEnabled]="isTelegramEnabled"
+        (saved)="onSaved($event)"
+      ></app-form-vote>
+    } @else {
+      <div data-vote-disabled role="region" aria-label="Feedback form">
+        <img ngSrc="/me-sad.svg" alt="No vote" width="56" height="90" priority />
+        <p>Feedback Vote disabled</p>
+      </div>
+    }
+  } @else {
+    <p>Loading...</p>
+  }
 }
-} @else {
-<p>Loading...</p>
-} }
 
 <dialog #dialog>
-  <app-toast
-    [message]="stateSave()?.message"
-    [type]="stateSave()?.type"
-  ></app-toast>
+  <app-toast [message]="stateSave()?.message" [type]="stateSave()?.type"></app-toast>
   <button (click)="dialog.close()">Close</button>
 </dialog>

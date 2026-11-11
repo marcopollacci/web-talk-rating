@@ -1,4 +1,4 @@
-@use "../../styles/mixins.scss" as mixins;
+@use '../../styles/mixins.scss' as mixins;
 
 :host {
   @include mixins.atma-font();
@@ -8,11 +8,11 @@
   border-radius: 0.5em;
   inset-block-start: calc(0% + 1rem);
   font-size: 2rem;
-  &[toast-type="success"] {
+  &[toast-type='success'] {
     background-color: #17a948ff;
     color: #ffffff;
   }
-  &[toast-type="error"] {
+  &[toast-type='error'] {
     background-color: #ff0000ff;
     color: #ffffff;
   }

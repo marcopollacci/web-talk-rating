@@ -1,12 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
   imports: [],
   templateUrl: './spinner.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './spinner.component.scss'
+  styleUrl: './spinner.component.scss',
 })
-export class SpinnerComponent {
-
-}
+export class SpinnerComponent {}

@@ -46,9 +46,7 @@ export class QueryDBHelper {
 
   async getSingleEventRating<T>(event: string): Promise<T> {
     return (await this.#neonObj.query(
-      `SELECT * FROM ${
-        this.#schemaPrefix
-      }.events_rating_avg WHERE id_event = $1;`,
+      `SELECT * FROM ${this.#schemaPrefix}.events_rating_avg WHERE id_event = $1;`,
       [event],
     )) as T;
   }
@@ -61,9 +59,7 @@ export class QueryDBHelper {
     );
 
     return await this.#neonObj.query(
-      `INSERT INTO ${
-        this.#schemaPrefix
-      }.rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
+      `INSERT INTO ${this.#schemaPrefix}.rating (fk_events, value, comment) VALUES ($1, $2, $3);`,
       [realEventId['id'], formData.rating, formData.comment],
     );
   }

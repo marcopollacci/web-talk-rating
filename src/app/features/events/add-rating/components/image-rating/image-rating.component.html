@@ -9,10 +9,10 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
 >
   <rect
-    (click)="ratingSelected.emit(1)"
+    (click)="select(1)"
     (keydown)="onKeyDown($event, 1)"
     [style.filter]="filterValue(1)"
-    [ariaChecked]="formValueRating() === 1"
+    [ariaChecked]="value() === 1"
     aria-label="1 star"
     role="radio"
     [attr.tabindex]="getTabindex([0, 1])"
@@ -29,10 +29,10 @@
   />
 
   <rect
-    (click)="ratingSelected.emit(2)"
+    (click)="select(2)"
     (keydown)="onKeyDown($event, 2)"
     [style.filter]="filterValue(2)"
-    [ariaChecked]="formValueRating() === 2"
+    [ariaChecked]="value() === 2"
     aria-label="2 stars"
     role="radio"
     [attr.tabindex]="getTabindex(2)"
@@ -49,10 +49,10 @@
     fill="var(--atma-default-color)"
   />
   <rect
-    (click)="ratingSelected.emit(3)"
+    (click)="select(3)"
     (keydown)="onKeyDown($event, 3)"
     [style.filter]="filterValue(3)"
-    [ariaChecked]="formValueRating() === 3"
+    [ariaChecked]="value() === 3"
     aria-label="3 stars"
     role="radio"
     [attr.tabindex]="getTabindex(3)"
@@ -69,10 +69,10 @@
     fill="var(--atma-default-color)"
   />
   <rect
-    (click)="ratingSelected.emit(4)"
+    (click)="select(4)"
     (keydown)="onKeyDown($event, 4)"
     [style.filter]="filterValue(4)"
-    [ariaChecked]="formValueRating() === 4"
+    [ariaChecked]="value() === 4"
     aria-label="4 stars"
     [attr.tabindex]="getTabindex(4)"
     role="radio"
@@ -89,10 +89,10 @@
   />
 
   <rect
-    (click)="ratingSelected.emit(5)"
+    (click)="select(5)"
     (keydown)="onKeyDown($event, 5)"
     [style.filter]="filterValue(5)"
-    [ariaChecked]="formValueRating() === 5"
+    [ariaChecked]="value() === 5"
     [attr.tabindex]="getTabindex(5)"
     aria-label="5 stars"
     role="radio"
@@ -109,44 +109,19 @@
   />
 
   <defs>
-    <pattern
-      id="pattern0_7_525"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
+    <pattern id="pattern0_7_525" patternContentUnits="objectBoundingBox" width="1" height="1">
       <use xlink:href="#image0_7_525" transform="scale(0.003125 0.0025)" />
     </pattern>
-    <pattern
-      id="pattern1_7_525"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
+    <pattern id="pattern1_7_525" patternContentUnits="objectBoundingBox" width="1" height="1">
       <use xlink:href="#image1_7_525" transform="scale(0.003125 0.0025)" />
     </pattern>
-    <pattern
-      id="pattern2_7_525"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
+    <pattern id="pattern2_7_525" patternContentUnits="objectBoundingBox" width="1" height="1">
       <use xlink:href="#image2_7_525" transform="scale(0.003125 0.0025)" />
     </pattern>
-    <pattern
-      id="pattern3_7_525"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
+    <pattern id="pattern3_7_525" patternContentUnits="objectBoundingBox" width="1" height="1">
       <use xlink:href="#image3_7_525" transform="scale(0.003125 0.0025)" />
     </pattern>
-    <pattern
-      id="pattern4_7_525"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
+    <pattern id="pattern4_7_525" patternContentUnits="objectBoundingBox" width="1" height="1">
       <use xlink:href="#image4_7_525" transform="scale(0.003125 0.0025)" />
     </pattern>
     <image

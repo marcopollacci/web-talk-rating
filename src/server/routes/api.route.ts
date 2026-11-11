@@ -10,10 +10,7 @@ import {
 import { executeApiCall } from '../helpers/api.helper';
 import { isTTLExpired } from '../helpers/cache.helper';
 import { QueryDBHelper } from '../helpers/querydb.helper';
-import {
-  sendTelegramMessage,
-  sendTelegramPhoto,
-} from '../helpers/telegram.helper';
+import { sendTelegramMessage, sendTelegramPhoto } from '../helpers/telegram.helper';
 
 const router = express.Router();
 const connectionDBNeon = new QueryDBHelper(process.env['NEON_DATABASE_URL']!);
@@ -23,20 +20,15 @@ router.use(express.json());
 
 router.get('/up-neon', async (_req, res) => {
   const { status, message } = await executeApiCall<string>(
-    connectionDBNeon.getVersion.bind(connectionDBNeon)
+    connectionDBNeon.getVersion.bind(connectionDBNeon),
   );
   res.status(status);
-  res.json({ messge: !!message ? 'OK' : 'KO' });
+  res.json({ messge: message ? 'OK' : 'KO' });
 });
 
 router.get('/get-all-events-rating', async (req, res) => {
-  const { status, message } = await executeApiCall<
-    GetAllEventsRatingResponse[]
-  >(
-    connectionDBNeon.getAllEventsRating.bind(
-      connectionDBNeon,
-      req.query['event'] as queryEvents
-    )
+  const { status, message } = await executeApiCall<GetAllEventsRatingResponse[]>(
+    connectionDBNeon.getAllEventsRating.bind(connectionDBNeon, req.query['event'] as queryEvents),
   );
   res.status(status);
   res.json(message);
@@ -51,7 +43,7 @@ router.get('/get-all-events', async (_req, res) => {
     return;
   }
   const { status, message } = await executeApiCall<GetEvents>(
-    connectionDBNeon.getAllEvents.bind(connectionDBNeon)
+    connectionDBNeon.getAllEvents.bind(connectionDBNeon),
   );
 
   if (status === 200) {
@@ -75,7 +67,7 @@ router.get('/get-event/:eventId', async (req, res) => {
   }
 
   const { status, message } = await executeApiCall<GetSingleEventResponse>(
-    connectionDBNeon.getEvent.bind(connectionDBNeon, req.params.eventId)
+    connectionDBNeon.getEvent.bind(connectionDBNeon, req.params.eventId),
   );
 
   res.status(status);
@@ -116,11 +108,7 @@ router.post('/insert-rating/:eventId', async (req, res) => {
   }
 
   const { status, message } = await executeApiCall<void>(
-    connectionDBNeon.insertRating.bind(
-      connectionDBNeon,
-      req.params.eventId,
-      req.body
-    )
+    connectionDBNeon.insertRating.bind(connectionDBNeon, req.params.eventId, req.body),
   );
 
   if (process.env['TELEGRAM_BOT_API']) {

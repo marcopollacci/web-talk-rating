@@ -1,4 +1,4 @@
-[role="contentinfo"] {
+[role='contentinfo'] {
   margin-block-start: 1.5rem;
   text-align: center;
 }
@@ -64,10 +64,10 @@ form {
       cursor: pointer;
     }
 
-    &[type="submit"] {
+    &[type='submit'] {
       font-size: 1em;
     }
-    &[type="button"] {
+    &[type='button'] {
       display: flex;
       padding: 0.8em 0.5em;
       column-gap: 0.5rem;
@@ -87,7 +87,7 @@ form {
     }
   }
 
-  [role="group"] {
+  [role='group'] {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -100,7 +100,7 @@ form {
     }
   }
 
-  [role="complementary"] {
+  [role='complementary'] {
     display: flex;
     align-items: center;
     column-gap: 0.3rem;

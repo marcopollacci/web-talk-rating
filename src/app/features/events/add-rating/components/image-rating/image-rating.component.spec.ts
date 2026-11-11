@@ -15,11 +15,26 @@ describe('ImageRatingComponent', () => {
 
     fixture = TestBed.createComponent(ImageRatingComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('formValueRating', 5);
+    fixture.componentRef.setInput('value', 5);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set the value and emit touch on click', () => {
+    let touched = false;
+    component.touch.subscribe(() => (touched = true));
+    const star = fixture.nativeElement.querySelector('[data-rating="3"]') as SVGElement;
+    star.dispatchEvent(new MouseEvent('click'));
+    expect(component.value()).toBe(3);
+    expect(touched).toBeTrue();
+  });
+
+  it('should select the rating with Enter', () => {
+    const star = fixture.nativeElement.querySelector('[data-rating="2"]') as SVGElement;
+    star.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    expect(component.value()).toBe(2);
   });
 });

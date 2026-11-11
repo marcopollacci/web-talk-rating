@@ -1,20 +1,20 @@
-import { Component, ElementRef, input, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, model, output, viewChild } from '@angular/core';
+import { FormValueControl } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-image-rating',
   imports: [],
   templateUrl: './image-rating.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './image-rating.component.scss',
 })
-export class ImageRatingComponent {
-  formValueRating = input.required<number>();
-  ratingSelected = output<number>();
+export class ImageRatingComponent implements FormValueControl<number> {
+  readonly value = model(0);
+  readonly touch = output<void>();
 
   svgElement = viewChild.required<ElementRef>('svgElement');
 
   filterValue(ratingToCompare: number) {
-    if (this.formValueRating() === ratingToCompare) {
+    if (this.value() === ratingToCompare) {
       return 'none';
     }
 
@@ -25,7 +25,7 @@ export class ImageRatingComponent {
     if (typeof rating === 'number') {
       rating = [rating];
     }
-    if (rating.includes(this.formValueRating())) {
+    if (rating.includes(this.value())) {
       return 0;
     }
 
@@ -36,13 +36,11 @@ export class ImageRatingComponent {
     // Handle Space and Enter keys
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
-      this.ratingSelected.emit(rating);
+      this.select(rating);
       return;
     }
 
-    if (
-      ['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown'].includes(event.key)
-    ) {
+    if (['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
       let newRating: number;
       if (['ArrowRight', 'ArrowUp'].includes(event.key)) {
@@ -55,11 +53,14 @@ export class ImageRatingComponent {
     }
   }
 
+  select(rating: number) {
+    this.value.set(rating);
+    this.touch.emit();
+  }
+
   #focusRating(rating: number) {
     const svgEl = this.svgElement().nativeElement;
-    const element = svgEl.querySelector(
-      `[data-rating="${rating}"]`
-    ) as SVGElement;
+    const element = svgEl.querySelector(`[data-rating="${rating}"]`) as SVGElement;
     element.focus();
   }
 }

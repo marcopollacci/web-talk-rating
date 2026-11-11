@@ -7,8 +7,7 @@ export class DateRangePipe implements PipeTransform {
 
   transform(from: string, to: string): string {
     const fromDate = new Date(from);
-    const formatted = (d: Date) =>
-      this.#datePipe.transform(d, 'dd/MM/yyyy') ?? '';
+    const formatted = (d: Date) => this.#datePipe.transform(d, 'dd/MM/yyyy') ?? '';
 
     const toDate = new Date(to);
 

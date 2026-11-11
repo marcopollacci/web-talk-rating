@@ -1,4 +1,4 @@
-@use "../../../common/styles/mixins.scss" as mixins;
+@use '../../../common/styles/mixins.scss' as mixins;
 
 :host {
   padding: 0.5rem 1rem;
@@ -6,7 +6,7 @@
 }
 
 p {
-  &[role="contentinfo"] {
+  &[role='contentinfo'] {
     @include mixins.atma-font();
     font-size: 1.6rem;
     line-height: 2rem;
@@ -14,6 +14,7 @@ p {
 }
 
 section {
+  position: relative;
   border: 1px solid;
   border-radius: 1rem;
   margin-block-end: 1rem;
@@ -49,6 +50,13 @@ section {
     }
     a {
       color: var(--atma-default-color);
+      // stretch the link over the whole card so the card stays clickable
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+      }
     }
   }
 }

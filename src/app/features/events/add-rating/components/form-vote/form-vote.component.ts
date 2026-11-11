@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { form, FormField, FormRoot, max, min, required, validate } from '@angular/forms/signals';
 import { ToastInterface } from '@common/models/toast.model';
 import { firstValueFrom, of, switchMap } from 'rxjs';
@@ -13,7 +13,6 @@ const RANGE_MESSAGE = 'Rating must be a whole number from 1 to 5.';
   imports: [FormField, FormRoot, ImageRatingComponent],
   templateUrl: './form-vote.component.html',
   styleUrl: './form-vote.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     role: 'region',
     'aria-label': 'Feedback form',
@@ -37,7 +36,7 @@ export class FormVoteComponent {
       min(path.rating, 1, { message: RANGE_MESSAGE });
       max(path.rating, 5, { message: RANGE_MESSAGE });
       validate(path.rating, ({ value }) =>
-        Number.isInteger(value()) ? null : { kind: 'integer', message: RANGE_MESSAGE }
+        Number.isInteger(value()) ? null : { kind: 'integer', message: RANGE_MESSAGE },
       );
     },
     {
@@ -52,7 +51,7 @@ export class FormVoteComponent {
       submission: {
         action: (field) => this.#save(field().value()),
       },
-    }
+    },
   );
 
   async #save({ rating, comment }: { rating: number; comment: string }) {
@@ -67,11 +66,7 @@ export class FormVoteComponent {
       await firstValueFrom(
         this.#eventSrv
           .insertRating(this.eventId(), vote)
-          .pipe(
-            switchMap(() =>
-              vote.image ? this.#eventSrv.uploadFile(vote.image) : of('done')
-            )
-          )
+          .pipe(switchMap(() => (vote.image ? this.#eventSrv.uploadFile(vote.image) : of('done')))),
       );
     } catch {
       this.saved.emit({ type: 'error', message: 'Error saving your vote' });

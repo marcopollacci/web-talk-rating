@@ -1,11 +1,12 @@
 export const executeApiCall = async <T>(
-  funcToCall: Function
+  funcToCall: () => unknown,
 ): Promise<{ status: number; message: T | string }> => {
   let status = 200;
   let message: T | string;
   try {
-    message = await funcToCall.call(undefined);
-  } catch (error) {
+    // callers declare T; the DB layer returns untyped rows
+    message = (await funcToCall()) as T;
+  } catch {
     status = 500;
     message = 'KO';
   }

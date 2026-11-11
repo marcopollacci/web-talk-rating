@@ -1,0 +1,8 @@
+dist
+coverage
+.angular
+node_modules
+pnpm-lock.yaml
+.agents
+.claude
+.tokensave

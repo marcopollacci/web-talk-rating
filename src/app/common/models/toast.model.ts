@@ -1,6 +1,4 @@
-const TYPE_TOAST = ['success', 'error'] as const;
-
-export type ToastType = (typeof TYPE_TOAST)[number];
+export type ToastType = 'success' | 'error';
 
 export interface ToastInterface {
   message: string;
