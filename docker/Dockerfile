@@ -1,4 +1,4 @@
-FROM node:26-alpine3.22 AS build
+FROM node:26-alpine3.24 AS build
 
 RUN npm install -g pnpm@11
 RUN echo "pnpm version: $(pnpm --version)"
@@ -10,7 +10,7 @@ RUN mv .env.production .env
 RUN pnpm i --frozen-lockfile
 RUN pnpm run build:local
 
-FROM node:26-alpine3.22
+FROM node:26-alpine3.24
 
 WORKDIR /opt/web-rating
 COPY --from=build /app/.env ./
